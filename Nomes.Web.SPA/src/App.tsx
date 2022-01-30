@@ -6,7 +6,6 @@ import { Route, Routes } from 'react-router-dom';
 import Search from './Pages/Search'
 import Results from './Pages/Result';
 import { Heading} from '@dracula/dracula-ui';
-import { Rodape } from './Components/Rodape';
 
 function App() {
   return (
