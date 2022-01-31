@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var createWindow = function () {
     var win = new electron_1.BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 700,
     });
     win.loadFile('./Pages/Nomes/build/index.html');
 };
