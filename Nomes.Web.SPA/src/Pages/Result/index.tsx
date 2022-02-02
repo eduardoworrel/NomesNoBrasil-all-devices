@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Divider, Heading, Input } from "@dracula/dracula-ui";
+import { Box, Button, Divider, Heading, Input, Text } from "@dracula/dracula-ui";
 import { HistoryChart } from '../../Components/Result/Chart/HistoryChart';
 import Dados from '../../Components/Result/Dados';
+import Estados from '../../Components/Result/Estados';
 import ISecoes from '../../Interfaces/ISecoes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ApiService from '../../Services/ApiService';
@@ -12,23 +13,26 @@ function Results() {
     const history = useNavigate();
     const params = useParams();
     const nome = params.nome ?? "";
+    const abaCallback = params.aba ?? 1;
+    console.log(abaCallback)
+    const [estado, setEstado] = useState("");
 
     const [secao, setSecao] = useState<ISecoes | null>(null)
     useEffect(() => {
         const handle = async () => {
             const secao: ISecoes = {
-                faixa: await (await ApiService.getFaixa(nome)).result,
-                basica: await (await ApiService.getBasica(nome)).result
+                faixa: await (await ApiService.getFaixa(nome, estado)).result,
+                basica: await (await ApiService.getBasica(nome, estado)).result
             }
             if (!secao.faixa.length) {
                 const callback = 1
-                history("/" + callback);
+                history("/" + callback + "/" + abaCallback);
             }
             setSecao(secao)
 
         }
         handle()
-    }, [])
+    }, [estado])
 
     const informacoesBasicas = secao?.basica && secao?.basica[0]
     const faixa = secao?.faixa
@@ -50,7 +54,7 @@ function Results() {
                         />
                     </section>
                     <section className="inputButton" >
-                        <Link to="/">
+                        <Link to={"/0/" + abaCallback}>
                             <Button color="cyanGreen" m="sm">
                                 Resetar
                         </Button>
@@ -58,8 +62,11 @@ function Results() {
 
                     </section>
                 </Box>
+                <Box p="xs">
+                    <Estados setEstado={setEstado} preSelecionado={estado}></Estados>
+                </Box>
                 <Box>
-                    <Dados informacoesBasicas={informacoesBasicas} />
+                    <Dados informacoesBasicas={informacoesBasicas} localidadePersonalizada={estado} />
                 </Box>
                 <br />
                 <Divider />

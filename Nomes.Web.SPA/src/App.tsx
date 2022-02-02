@@ -15,8 +15,9 @@ function App() {
      
       <Routes>
         <Route path="" element={<Search />} />
-        <Route path=":callback" element={<Search />} />
+        <Route path=":callback/:aba" element={<Search />} />
         <Route path="results/:nome" element={<Results />} />
+        <Route path="results/:nome/:aba" element={<Results />} />
       </Routes>
     </main>
 

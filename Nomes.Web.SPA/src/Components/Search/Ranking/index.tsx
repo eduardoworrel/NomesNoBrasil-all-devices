@@ -9,7 +9,7 @@ const Ranking = () => {
     const [result, setResult] = useState<IMensagemInterna | null>(null)
     useEffect(() => {
         const load = async () => {
-            setResult(await ApiService.getRanking(10))
+            setResult(await ApiService.getRanking())
         }
         load()
     }, []);
@@ -17,9 +17,6 @@ const Ranking = () => {
     return (
 
         <>
-            <Heading p="sm">
-                TOP 10 BRASIL
-            </Heading>
             {result?.result.map((i: any, c: number) =>
                 <Box key={c} p="sm">
                     <Card color="cyan" variant="subtle" p="md">

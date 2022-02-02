@@ -21,6 +21,11 @@ body {
   }
 }
 
+.drac-card span {
+  width: 100%;
+  display: block;
+}
+
 .drac-btn {
   /* react-native  */
   color: black

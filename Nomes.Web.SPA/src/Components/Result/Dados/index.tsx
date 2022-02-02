@@ -3,10 +3,11 @@ import { Heading, Box, Text } from "@dracula/dracula-ui";
 import IBasica from "../../../Interfaces/IBasica";
 
 interface IProps {
-    informacoesBasicas: IBasica
+    informacoesBasicas: IBasica,
+    localidadePersonalizada: string
 }
 
-const Dados = ({ informacoesBasicas }: IProps) => {
+const Dados = ({ informacoesBasicas, localidadePersonalizada }: IProps) => {
     return (
         <>
             <Box color="cyan" rounded="lg" p="xs" m="xs">
@@ -19,7 +20,7 @@ const Dados = ({ informacoesBasicas }: IProps) => {
             <Box color="purpleCyan" rounded="lg" p="xs" m="xs">
                 <Heading>
                     <Text color="black">
-                        São {informacoesBasicas.freq.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {informacoesBasicas.nome}'s no Brasil
+                        São {informacoesBasicas.freq.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {informacoesBasicas.nome}'s
                     </Text>
                 </Heading>
             </Box>
@@ -30,14 +31,15 @@ const Dados = ({ informacoesBasicas }: IProps) => {
                     </Text>
                 </Heading>
             </Box>
-            <Box color="purple" rounded="lg" p="xs" m="xs">
-                <Heading>
-                    <Text color="black">
-                        {informacoesBasicas.ufMax} é o Estado com mais {informacoesBasicas.nome}'s
+            {(!localidadePersonalizada && informacoesBasicas.ufMax.length > 1 )&&
+                <Box color="purple" rounded="lg" p="xs" m="xs">
+                    <Heading>
+                        <Text color="black">
+                            {informacoesBasicas.ufMax} é o Estado com mais {informacoesBasicas.nome}'s
                         ({parseFloat(informacoesBasicas.ufMaxProp).toFixed(2).replace(".", ",")} a cada 100 mil habitantes)
                     </Text>
-                </Heading>
-            </Box>
+                    </Heading>
+                </Box>}
         </>
     )
 }
