@@ -1,4 +1,4 @@
 export default interface IMensagemInterna {
-    mensagem: number,
-    result: any
+  mensagem: number;
+  result: any;
 }

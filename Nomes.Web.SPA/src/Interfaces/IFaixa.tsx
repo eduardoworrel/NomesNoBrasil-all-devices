@@ -1,4 +1,4 @@
 export default interface IFaixa {
-    faixa: string,
-    freq: number
+  faixa: string;
+  freq: number;
 }

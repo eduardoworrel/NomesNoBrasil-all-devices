@@ -1,6 +1,6 @@
-import IBasica from './IBasica'
-import IFaixa from './IFaixa';
+import IBasica from "./IBasica";
+import IFaixa from "./IFaixa";
 export default interface ISecoes {
-    faixa: IFaixa[],
-    basica?: IBasica[],
+  faixa: IFaixa[];
+  basica?: IBasica[];
 }
