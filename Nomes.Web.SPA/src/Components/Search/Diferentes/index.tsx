@@ -1,10 +1,18 @@
-import { Box, Text, Button, Card, Heading } from "@dracula/dracula-ui";
+import { Box, Text, Button, Card, Heading, Divider } from "@dracula/dracula-ui";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import LoadingIcons from "react-loading-icons";
+import { Link, useParams } from "react-router-dom";
 import IMensagemInterna from "../../../Interfaces/IMensagemInterna";
 import ApiService from "../../../Services/ApiService";
 
-export default function Diferentes() {
+type IFormProps = {
+    setTab: (value: number) => void
+  }
+export default function Diferentes({setTab} : IFormProps) {
+    const params = useParams();
+    const nome = params.nome ?? "";
+    window.history.replaceState(null, "", `#/3/${nome}/0`)
+
     const [result, setResult] = useState<IMensagemInterna | null>(null)
     useEffect(() => {
         const load = async () => {
@@ -18,6 +26,18 @@ export default function Diferentes() {
     return (
 
         <>
+         <Text style={{cursor:"pointer"}} as="a" color="white" onClick={()=>{
+            window.history.replaceState(null, "", "#/1/0/0")
+            setTab(1)
+            }}> ⏪ Categorias</Text>
+            <Text  color="white" style={{float:"right"}}> <a style={{fontSize: "2em"}}>⭐</a> Diferentes&nbsp;&nbsp;</Text>
+            <Divider  />
+            {!result && <>
+            <Text as="p" align="center">
+            <LoadingIcons.Puff />
+            </Text>
+            </>
+            }
             {result?.result
                 .sort(function (a: any, b: any) {
                     if (a.result[0].rank > b.result[0].rank) {
@@ -32,7 +52,7 @@ export default function Diferentes() {
 
                     <Box key={c} p="sm">
 
-                        <Card color="green" variant="subtle" p="md">
+                        <Card  style={{borderColor:"white"}} variant="subtle" p="md">
                             <Heading>
                                 {i.result[0].nome}
                             </Heading>
@@ -40,8 +60,8 @@ export default function Diferentes() {
                                 {i.result[0].freq.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} HABITANTES
                         </Text>
                             <div className="bag">
-                                <Link to={"/results/" + i.result[0].nome+"/"+2}>
-                                    <Button color="cyanGreen">
+                                <Link to={"/results/3/" + i.result[0].nome+"/"}>
+                                    <Button color="white">
                                         Confira
                                     </Button>
                                 </Link>

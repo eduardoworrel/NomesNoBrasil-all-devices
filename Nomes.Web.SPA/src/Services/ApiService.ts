@@ -1,5 +1,5 @@
 import IMensagemInterna from '../Interfaces/IMensagemInterna';
-import { ASCENCAO, DIFERENTES } from './consts';
+import { ASCENCAO, DIFERENTES, PAGINA_INICIAL } from './consts';
 const ENDPOINT_FAIXA = 'https://servicodados.ibge.gov.br/api/v1/censos/nomes/faixa';
 const ENDPOINT_BASICA = 'https://servicodados.ibge.gov.br/api/v1/censos/nomes/basica';
 const ENDPOINT_RANKING = "https://servicodados.ibge.gov.br/api/v1/censos/nomes/ranking"
@@ -67,6 +67,25 @@ class ApiService {
             }
         }
     }
+    
+    static getPaginaInicial = async (): Promise<IMensagemInterna> => {
+        const result = [];
+        try {
+            for (let nome of PAGINA_INICIAL) {
+                result.push(await ApiService.getBasica(nome))
+            }
+            return {
+                mensagem: ERRO,
+                result: result,
+            }
+        } catch (e) {
+            return {
+                mensagem: ERRO,
+                result: [],
+            }
+        }
+    }
+    
     static getDiferentes = async (): Promise<IMensagemInterna> => {
         const result = [];
         try {

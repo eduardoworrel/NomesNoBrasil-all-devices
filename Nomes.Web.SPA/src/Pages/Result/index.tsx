@@ -13,8 +13,8 @@ function Results() {
     const history = useNavigate();
     const params = useParams();
     const nome = params.nome ?? "";
-    const abaCallback = params.aba ?? 1;
-    console.log(abaCallback)
+    const abaCallback = params.pagina ?? 1;
+
     const [estado, setEstado] = useState("");
 
     const [secao, setSecao] = useState<ISecoes | null>(null)
@@ -26,7 +26,7 @@ function Results() {
             }
             if (!secao.faixa.length) {
                 const callback = 1
-                history("/" + callback + "/" + abaCallback);
+                history("/" + abaCallback + "/" + nome + "/" + callback);
             }
             setSecao(secao)
 
@@ -54,7 +54,7 @@ function Results() {
                         />
                     </section>
                     <section className="inputButton" >
-                        <Link to={"/0/" + abaCallback}>
+                        <Link to={"/" + abaCallback+ "/"+ informacoesBasicas.nome + "/0"}>
                             <Button color="cyanGreen" m="sm">
                                 Resetar
                         </Button>

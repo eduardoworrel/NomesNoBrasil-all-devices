@@ -1,15 +1,19 @@
 import { Box, Button, Input } from '@dracula/dracula-ui'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const SearchBar = (): JSX.Element => {
     const history = useNavigate();
-
+    const params = useParams();
+   
+    
+    const paginaCallback = params.pagina ? parseInt(params.pagina) : 1;
+   
     const [nome, setNome] = useState("");
     const handleNovaBusca = () => {
         if(nome)
-        history("/results/" + nome);
+        history(`/results/${paginaCallback}/` + nome);
     }
     return (
         <>

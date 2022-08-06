@@ -1,10 +1,16 @@
-import { Box, Text, Button, Card, Heading } from "@dracula/dracula-ui";
+import { Box, Text, Button, Card, Heading, Divider } from "@dracula/dracula-ui";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import LoadingIcons from "react-loading-icons";
+import { Link, useParams } from "react-router-dom";
 import IMensagemInterna from "../../../Interfaces/IMensagemInterna";
 import ApiService from "../../../Services/ApiService";
-
-export default function Ascencao() {
+type IFormProps = {
+    setTab: (value: number) => void
+  }
+export default function Ascencao ({setTab} : IFormProps) {
+    const params = useParams();
+    const nome = params.nome ?? "";
+    window.history.replaceState(null, "", `#/4/${nome}/0`)
     const [result, setResult] = useState<IMensagemInterna | null>(null)
     useEffect(() => {
         const load = async () => {
@@ -17,6 +23,18 @@ export default function Ascencao() {
     return (
 
         <>
+            <Text style={{cursor:"pointer"}} as="a" color="white" onClick={()=>{
+            window.history.replaceState(null, "", "#/1/0/0")
+            setTab(1)
+            }}> ⏪ Categorias</Text>
+            <Text  color="orange" style={{float:"right"}}> <a style={{fontSize: "2em"}}>🔥</a> Ascenção&nbsp;&nbsp;</Text>
+            <Divider color="orange" />
+            {!result && <>
+            <Text as="p" align="center">
+            <LoadingIcons.Puff />
+            </Text>
+            </>
+            }
             {result?.result
                 .sort(function (a: any, b: any) {
                     if (a.result[0].rank > b.result[0].rank) {
@@ -31,7 +49,7 @@ export default function Ascencao() {
 
                     <Box key={c} p="sm">
 
-                        <Card color="pink" variant="subtle" p="md">
+                        <Card color="orange" variant="subtle" p="md">
                             <Heading>
                                 {i.result[0].nome}
                             </Heading>
@@ -39,8 +57,8 @@ export default function Ascencao() {
                                 {i.result[0].freq.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} HABITANTES
                         </Text>
                             <div className="bag">
-                                <Link to={"/results/" + i.result[0].nome+"/"+3}>
-                                    <Button color="pinkPurple">
+                                <Link to={"/results/4/" + i.result[0].nome+"/"}>
+                                    <Button color="orange">
                                         Confira
                                 </Button>
                                 </Link>
