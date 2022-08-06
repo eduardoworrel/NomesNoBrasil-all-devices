@@ -38,7 +38,7 @@ export default function Geeks({ setTab }: IFormProps) {
         ⏪ Voltar
       </Text>
       <Text color="white" style={{ float: "right" }}>
-        <b style={{ fontSize: "2em" }}>&nbsp;🧘‍♀️</b> Pensadores&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🦸‍♂️</b> Geeks&nbsp;&nbsp;
       </Text>
       <Divider />
       {!result && (

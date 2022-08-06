@@ -4,10 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const SearchBar = (): JSX.Element => {
   const history = useNavigate();
+  const params = useParams();
+  const callback = params.callback && (parseInt(params.callback) ?? 0);
 
-  const [nome, setNome] = useState("");
+  
+  const [nome, setNome] = useState(params.nome ?? "");
   const handleNovaBusca = () => {
-    if (nome) history(`/results/1/` + nome);
+    if (nome) {
+      history(`/results/1/` + nome )
+      window.location.reload()
+    }
   };
   return (
     <>
@@ -15,10 +21,10 @@ const SearchBar = (): JSX.Element => {
         <section className="inputName">
           <Input
             value={nome}
-            autoFocus={true}
             onChange={(e) => setNome(e.target.value)}
             color="white"
             placeholder="Um nome"
+            autoFocus={callback == 1}
             m="xs"
           />
         </section>

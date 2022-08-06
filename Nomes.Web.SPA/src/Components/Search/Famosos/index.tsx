@@ -38,7 +38,7 @@ export default function Famosos({ setTab }: IFormProps) {
         ⏪ Voltar
       </Text>
       <Text color="white" style={{ float: "right" }}>
-        <b style={{ fontSize: "2em" }}>&nbsp;✨</b> Famosos&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>✨</b> Famosos&nbsp;&nbsp;
       </Text>
       <Divider />
       {!result && (

@@ -44,7 +44,8 @@ const Search = () => {
             <SearchBar />
             {callback === 1 && (
               <Box style={{ textAlign: "center" }}>
-                <Text color="white">Nome não encontrado</Text>
+                <Text color="white">Não conseguimos encontrar o nome <b style={{ fontSize: "2em" }}>😢</b> <br/>
+                Tente outro</Text>
               </Box>
             )}
 

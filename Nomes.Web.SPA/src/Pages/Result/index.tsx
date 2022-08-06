@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Divider,
-  Heading,
-  Input,
   Text,
 } from "@dracula/dracula-ui";
 import { HistoryChart } from "../../Components/Result/Chart/HistoryChart";
@@ -13,6 +10,7 @@ import Estados from "../../Components/Result/Estados";
 import ISecoes from "../../Interfaces/ISecoes";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
+import SearchBar from "../../Components/Search/SearchBar";
 
 function Results() {
   const history = useNavigate();
@@ -31,9 +29,10 @@ function Results() {
       };
       if (!secao.faixa.length) {
         const callback = 1;
-        history("/" + abaCallback + "/" + nome + "/" + callback);
+        history("/1/" + callback);
+      }else{
+        setSecao(secao);
       }
-      setSecao(secao);
     };
     handle();
   }, [estado]);
@@ -47,26 +46,23 @@ function Results() {
 
   return (
     <>
-      <Heading size="sm" className="centered">
-        {informacoesBasicas.nome}
-      </Heading>
-      <Box>
-        <Box p="xs" className="flex-cotainer">
-          <section className="inputName">
-            <Input
-              style={{ color: "white" }}
-              value={informacoesBasicas.nome}
-              disabled={true}
-            />
-          </section>
-          <section className="inputButton">
-            <Link to={"/" + abaCallback + "/" + informacoesBasicas.nome + "/0"}>
-              <Button color="cyanGreen" m="sm">
-                Resetar
-              </Button>
-            </Link>
-          </section>
-        </Box>
+      
+      <Text size="lg" color="white" style={{ float: "right" }}>
+        <b style={{ fontSize: "1em" }}>👤</b> {informacoesBasicas.nome}&nbsp;&nbsp;
+      </Text>
+      <Text>
+      
+      <Link to={"/" + abaCallback + "/0"}
+        style={{ cursor: "pointer" ,color:"white", textDecoration:"none"}}>
+       
+        ⏪ Voltar
+      </Link>
+    </Text>
+      <Divider />
+      <br/>
+      <SearchBar />
+      
+      <Box m="xs">
         <Box p="xs">
           <Estados setEstado={setEstado} preSelecionado={estado}></Estados>
         </Box>
