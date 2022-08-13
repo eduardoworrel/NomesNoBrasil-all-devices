@@ -43,10 +43,25 @@ const Search = () => {
 
             <SearchBar />
             {callback === 1 && (
+              <>
               <Box style={{ textAlign: "center" }}>
-                <Text color="white">Não conseguimos encontrar o nome <b style={{ fontSize: "2em" }}>😢</b> <br/>
-                Tente outro</Text>
+                <Text color="white">
+                  Não conseguimos encontrar o nome <b style={{ fontSize: "2em" }}>😢</b> <br/>
+               </Text>
+               
               </Box>
+              <Card variant="subtle" color="yellow" p="xs">
+
+                <Text color="white">
+                  <small style={{textAlign: "justify"}}>
+                    - Para o Brasil todo só conseguimos exibir nomes com mais de <strong>19</strong> ocorrencias.<br/>
+                    - Para cada estado só conseguimos exibir nomes com mais de <strong>14</strong> ocorrencias.
+                  <br/> <strong>Fonte: IBGE, Censo Demográfico 2010. </strong></small>
+                </Text>
+                
+              </Card>
+              <br/> 
+               </>
             )}
 
             <Divider />
