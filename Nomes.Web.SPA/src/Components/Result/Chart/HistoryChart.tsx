@@ -43,7 +43,7 @@ export const HistoryChart = ({ faixas }: IProps) => {
   };
   return (
     <>
-      <Heading p="xs" m="xs" size="xs">
+      <Heading p="xs" m="xs" size="md">
         Acompanhe a evolução históricas deste nome
       </Heading>
       <Line height={300} data={dados} />

@@ -1,5 +1,5 @@
 import { Box, Text, Button, Card, Heading, Divider } from "@dracula/dracula-ui";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingIcons from "react-loading-icons";
 import { Link, useParams } from "react-router-dom";
 import IMensagemInterna from "../../../Interfaces/IMensagemInterna";
@@ -10,7 +10,7 @@ type IFormProps = {
 export default function Ascencao({ setTab }: IFormProps) {
   const params = useParams();
   const nome = params.nome ?? "";
-  window.history.replaceState(null, "", `#/4/${nome}/0`);
+  window.history.replaceState(null, "", `#/4/0`);
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
@@ -27,7 +27,7 @@ export default function Ascencao({ setTab }: IFormProps) {
         as="a"
         color="white"
         onClick={() => {
-          window.history.replaceState(null, "", "#/1/0/0");
+          window.history.replaceState(null, "", "#/1/0");
           setTab(1);
         }}
       >
@@ -36,7 +36,7 @@ export default function Ascencao({ setTab }: IFormProps) {
       </Text>
       <Text color="orange" style={{ float: "right" }}>
         {" "}
-        <a style={{ fontSize: "2em" }}>🔥</a> Ascenção&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🔥</b> Ascenção&nbsp;&nbsp;
       </Text>
       <Divider color="orange" />
       {!result && (

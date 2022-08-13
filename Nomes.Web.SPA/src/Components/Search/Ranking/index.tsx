@@ -12,7 +12,7 @@ type IFormProps = {
 const Ranking = ({ setTab }: IFormProps) => {
   const params = useParams();
   const nome = params.nome ?? "";
-  window.history.replaceState(null, "", `#/2/${nome}/0`);
+  window.history.replaceState(null, "", `#/2/0`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
@@ -29,7 +29,7 @@ const Ranking = ({ setTab }: IFormProps) => {
         as="a"
         color="white"
         onClick={() => {
-          window.history.replaceState(null, "", "#/1/0/0");
+          window.history.replaceState(null, "", "#/1/0");
           setTab(1);
         }}
       >
@@ -38,7 +38,7 @@ const Ranking = ({ setTab }: IFormProps) => {
       </Text>
       <Text color="red" style={{ float: "right" }}>
         {" "}
-        <a style={{ fontSize: "2em" }}>🏆</a> Populares&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🏆</b> Populares&nbsp;&nbsp;
       </Text>
       <Divider color="red" />
       {!result && (

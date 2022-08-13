@@ -1,5 +1,5 @@
 import { Box, Text, Button, Card, Heading, Divider } from "@dracula/dracula-ui";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingIcons from "react-loading-icons";
 import { Link, useParams } from "react-router-dom";
 import IMensagemInterna from "../../../Interfaces/IMensagemInterna";
@@ -11,7 +11,7 @@ type IFormProps = {
 export default function Diferentes({ setTab }: IFormProps) {
   const params = useParams();
   const nome = params.nome ?? "";
-  window.history.replaceState(null, "", `#/3/${nome}/0`);
+  window.history.replaceState(null, "", `#/3/0`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Diferentes({ setTab }: IFormProps) {
         as="a"
         color="white"
         onClick={() => {
-          window.history.replaceState(null, "", "#/1/0/0");
+          window.history.replaceState(null, "", "#/1/0");
           setTab(1);
         }}
       >
@@ -39,7 +39,7 @@ export default function Diferentes({ setTab }: IFormProps) {
       </Text>
       <Text color="white" style={{ float: "right" }}>
         {" "}
-        <a style={{ fontSize: "2em" }}>⭐</a> Diferentes&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>⭐</b> Diferentes&nbsp;&nbsp;
       </Text>
       <Divider />
       {!result && (

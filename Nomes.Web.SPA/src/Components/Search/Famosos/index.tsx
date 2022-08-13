@@ -11,7 +11,7 @@ type IFormProps = {
 export default function Famosos({ setTab }: IFormProps) {
   const params = useParams();
   const nome = params.nome ?? "";
-  window.history.replaceState(null, "", `#/6/${nome}/0`);
+  window.history.replaceState(null, "", `#/6/0`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Famosos({ setTab }: IFormProps) {
         as="a"
         color="white"
         onClick={() => {
-          window.history.replaceState(null, "", "#/1/0/0");
+          window.history.replaceState(null, "", "#/1/0");
           setTab(1);
         }}
       >
