@@ -17,6 +17,7 @@ export default function Futebol({ setTab }: IFormProps) {
   useEffect(() => {
     const load = async () => {
       const result = await ApiService.getFutebol();
+      ApiService.putVisit("4")
 
       setResult(result);
     };

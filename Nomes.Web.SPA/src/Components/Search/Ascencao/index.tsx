@@ -15,6 +15,7 @@ export default function Ascencao({ setTab }: IFormProps) {
   useEffect(() => {
     const load = async () => {
       const result = await ApiService.getAsncencao();
+      ApiService.putVisit("2")
       setResult(result);
     };
     load();

@@ -18,6 +18,7 @@ export default function Geeks({ setTab }: IFormProps) {
     const load = async () => {
       const result = await ApiService.getGeeks();
 
+      ApiService.putVisit("8")
       setResult(result);
     };
     load();

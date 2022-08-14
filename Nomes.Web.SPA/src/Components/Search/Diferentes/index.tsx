@@ -18,6 +18,7 @@ export default function Diferentes({ setTab }: IFormProps) {
     const load = async () => {
       const result = await ApiService.getDiferentes();
 
+      ApiService.putVisit("3")
       setResult(result);
     };
     load();

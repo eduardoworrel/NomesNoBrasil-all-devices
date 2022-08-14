@@ -18,6 +18,7 @@ export default function Pensadores({ setTab }: IFormProps) {
     const load = async () => {
       const result = await ApiService.getPensadores();
 
+      ApiService.putVisit("7")
       setResult(result);
     };
     load();

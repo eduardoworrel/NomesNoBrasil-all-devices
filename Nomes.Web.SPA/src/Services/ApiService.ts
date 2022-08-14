@@ -16,6 +16,9 @@ const ENDPOINT_BASICA =
 const ENDPOINT_RANKING =
   "https://servicodados.ibge.gov.br/api/v1/censos/nomes/ranking";
 
+const CATEGORIAS =
+  "https://api.nomesnobrasil.com/Categorias";
+
 const SUCESSO = 1,
   ERRO = 0;
 class ApiService {
@@ -82,6 +85,34 @@ class ApiService {
     }
   };
 
+  static getCategorias = async (): Promise<IMensagemInterna> => {
+    
+    try {
+      const cat = await (await fetch(CATEGORIAS)).json();
+     
+      return {
+        mensagem: SUCESSO,
+        result: cat,
+      };
+    } catch (e) {
+      return {
+        mensagem: ERRO,
+        result: [],
+      };
+    }
+  };
+  static putVisit = (categoriaId : string): void => {
+    
+    try {
+      const body = {
+        method: 'POST',
+      }
+    fetch(CATEGORIAS+"?categoriaId=" + categoriaId, body)   
+     
+    } catch (e) {
+     alert(e)
+    }
+  };
   static getPaginaInicial = async (): Promise<IMensagemInterna> => {
     const result = [];
     try {
@@ -89,7 +120,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -106,7 +137,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -124,7 +155,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -142,7 +173,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -159,7 +190,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -176,7 +207,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -193,7 +224,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {
@@ -211,7 +242,7 @@ class ApiService {
         result.push(await ApiService.getBasica(nome));
       }
       return {
-        mensagem: ERRO,
+        mensagem: SUCESSO,
         result: result,
       };
     } catch (e) {

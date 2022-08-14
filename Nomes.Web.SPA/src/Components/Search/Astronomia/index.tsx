@@ -18,6 +18,7 @@ export default function Astronomia({ setTab }: IFormProps) {
     const load = async () => {
       const result = await ApiService.getAstronomia();
 
+      ApiService.putVisit("6")
       setResult(result);
     };
     load();

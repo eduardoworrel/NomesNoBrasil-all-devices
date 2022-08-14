@@ -18,6 +18,7 @@ export default function Famosos({ setTab }: IFormProps) {
     const load = async () => {
       const result = await ApiService.getFamosos();
 
+      ApiService.putVisit("5")
       setResult(result);
     };
     load();

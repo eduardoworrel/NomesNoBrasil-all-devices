@@ -13,11 +13,13 @@ const Ranking = ({ setTab }: IFormProps) => {
   const params = useParams();
   const nome = params.nome ?? "";
   window.history.replaceState(null, "", `#/2/0`);
-
+ 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
       setResult(await ApiService.getRanking());
+      ApiService.putVisit("1")
+  
     };
     load();
   }, []);
