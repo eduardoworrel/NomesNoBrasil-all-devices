@@ -9,6 +9,7 @@ public class MyContext : DbContext
 
     }
     
+    public DbSet<Sugestao> Sugestoes { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<VisitaCategoria> VisitaCategorias{ get; set; }
     public DbSet<VisitaNome> VisitaNomes{ get; set; }
@@ -37,7 +38,7 @@ public class MyContext : DbContext
                 Titulo = "Diferentes",
                 Color = "white",
                 Emoji = "⭐",
-                PrincipalNameIndex = "4",
+                PrincipalNameIndex = "7",
                 SearchTabIndex = "3"
             },
             new Categoria {

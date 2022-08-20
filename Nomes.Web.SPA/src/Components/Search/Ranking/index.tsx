@@ -38,9 +38,9 @@ const Ranking = ({ setTab }: IFormProps) => {
         {" "}
         ⏪ Voltar
       </Text>
-      <Text color="red" style={{ float: "right" }}>
+      <Text style={{ float: "right" }}>
         {" "}
-        <b style={{ fontSize: "2em" }}>🏆</b> Populares&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🥇</b> Populares&nbsp;&nbsp;
       </Text>
       <Divider color="red" />
       {!result && (

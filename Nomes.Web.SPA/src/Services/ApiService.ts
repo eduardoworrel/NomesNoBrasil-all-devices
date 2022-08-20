@@ -16,12 +16,25 @@ const ENDPOINT_BASICA =
 const ENDPOINT_RANKING =
   "https://servicodados.ibge.gov.br/api/v1/censos/nomes/ranking";
 
-const CATEGORIAS =
-  "https://api.nomesnobrasil.com/Categorias";
+  const CATEGORIAS =
+  "https://api2.nomesnobrasil.com/Categorias";
+  const SUGESTOES =
+  "https://api2.nomesnobrasil.com/Sugestoes";
 
 const SUCESSO = 1,
   ERRO = 0;
 class ApiService {
+  static sendMensage = (msg : string) =>{
+    try {
+      const body = {
+        method: 'POST',
+      }
+    fetch(SUGESTOES+"?mensagem=" + msg, body)   
+     
+    } catch (e) {
+     alert(e)
+    }
+  }
   static getFaixa = async (
     nome: string,
     estado = ""

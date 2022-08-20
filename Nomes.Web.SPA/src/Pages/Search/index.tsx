@@ -13,6 +13,7 @@ import Astronomia from "../../Components/Search/Astronomia";
 import Pensadores from "../../Components/Search/Pensadores";
 import Geeks from "../../Components/Search/Geeks";
 import LoadingIcons from "react-loading-icons";
+import { Sugestoes } from "../../Components/Sugestoes/Sugestoes";
 
 const Search = () => {
   const params = useParams();
@@ -25,10 +26,14 @@ const Search = () => {
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   const [cat, setCat] = useState<IMensagemInterna | null>(null);
 
+  const [clickAgrupar, setCA] = useState(false);
+  const [clickComparar, setCC] = useState(false);
+
   useEffect(() => {
     const load = async () => {
       const result = await ApiService.getPaginaInicial();
       const cat = await ApiService.getCategorias();
+      
       setCat(cat);
       setResult(result);
     };
@@ -68,6 +73,72 @@ const Search = () => {
             )}
 
             <Divider />
+              <Box>
+                <Card onClick={() => setTab(2)} style={{width:"45%", textAlign:"center", float: "left",cursor:"pointer"}} variant="subtle" color="cyan" m="xs" p="sm"> 
+                <b style={{fontSize:"1.6em"}}>🥉🥇🥈</b>
+                <Divider color="red" />
+                <Text >
+                  POPULARES
+                </Text>
+                </Card>
+                <Card style={{width:"45%", textAlign:"center", float: "left"}} 
+                onClick={()=>{
+                  setCA(true)
+                  setTimeout(()=>{
+                    setCA(false)
+                  },2000)
+                }}
+                variant="subtle" color="cyan" m="xs" p="sm">
+                <b style={{fontSize:"1.7em"}}>
+                {clickAgrupar?
+                   <>🪚</>
+                  :
+                  <>👥👥</>
+                  }</b>
+                <Divider />
+                <Text>
+                  {clickAgrupar?
+                   <>Em construção</>
+                  :
+                  <>AGRUPAR 🔒</>
+                  }
+                </Text>
+                </Card>
+                <Card  onClick={() => setTab(10)}  style={{width:"45%", textAlign:"center", float: "left"}} variant="subtle" color="cyan" m="xs" p="sm">
+                <b style={{fontSize:"1.5em"}}>💡</b>
+                <Divider color="pink" />
+                <Text>
+                CONTRIBUIR
+                  
+                </Text>
+                
+                </Card>
+                 <Card 
+                  onClick={()=>{
+                    setCC(true)
+                    setTimeout(()=>{
+                      setCC(false)
+                    },2000)
+                  }}
+                 style={{width:"45%", textAlign:"center", float: "left"}} variant="subtle" color="cyan" m="xs" p="sm">
+                <b style={{fontSize:"1.5em"}}>{clickComparar?
+                   <>🔧</>
+                  :
+                  <>👤❌👤</>
+                  }</b>
+                <Divider />
+                <Text>
+                {clickComparar?
+                  <>Em construção</>
+                  :
+                  <> COMPARAR 🔒</>
+                  }
+                  
+                </Text>
+                
+                </Card>
+              </Box>
+            <Divider style={{clear:"both"}}/>
             <Heading size="sm" className="centered">
               Ou navegue por categoria
             </Heading>
@@ -80,8 +151,9 @@ const Search = () => {
                 </Text>
               </>
             )}
-              {cat && cat.result.map((i: {count:number;color: ColorNames; emoji: string; titulo: string; principalNameIndex: string ; searchTabIndex: string;})=>
-                <>
+              {cat && cat.result.map((i: {id:number,count:number;color: ColorNames; emoji: string; titulo: string; principalNameIndex: string ; searchTabIndex: string;})=>
+                i.titulo != "Populares" &&
+                <Box key={i.id}>
                   <Card
                     onClick={() => setTab(parseInt(i.searchTabIndex))}
                     color={i.color}
@@ -93,10 +165,10 @@ const Search = () => {
                     <Text size="lg" as="span" align="right">
                     <small>{i.count} 👀</small>
                     </Text>
-                    <Heading style={{ marginTop: "-30px" }} color="red" size="lg">
+                    <Heading style={{ marginTop: "-30px" }} color={i.color} size="lg">
                       <b style={{ fontSize: "2em" }}>{i.emoji}</b> {i.titulo}
                     </Heading>
-                    <Text color="red" size="xs" align="right">
+                    <Text color={i.color} size="xs" align="right">
                       {result?.result[i.principalNameIndex].result[0].nome},{" "}
                       {result?.result[i.principalNameIndex].result[0].freq
                         .toString()
@@ -104,7 +176,8 @@ const Search = () => {
                       pessoas no Brasil
                     </Text>
                   </Card>
-                </>
+                </Box>
+                
               )}
               
             </Box>
@@ -119,6 +192,7 @@ const Search = () => {
         {tab === 7 && <Astronomia setTab={setTab} />}
         {tab === 8 && <Pensadores setTab={setTab} />}
         {tab === 9 && <Geeks setTab={setTab} />}
+        {tab === 10 && <Sugestoes setTab={setTab} />}
       </Box>
     </>
   );
