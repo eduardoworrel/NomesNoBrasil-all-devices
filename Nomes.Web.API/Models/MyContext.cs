@@ -51,9 +51,9 @@ public class MyContext : DbContext
             },
             new Categoria {
                 Id = 5,
-                Titulo = "Famosos",
+                Titulo = "Internacional",
                 Color = "pink",
-                Emoji = "✨",
+                Emoji = "📺",
                 PrincipalNameIndex = "2",
                 SearchTabIndex = "6"
             },
@@ -80,6 +80,22 @@ public class MyContext : DbContext
                 Emoji = "🦸‍♂️",
                 PrincipalNameIndex = "5",
                 SearchTabIndex = "9"
+            },
+            //10 used by sugestão
+            new Categoria {
+                Id = 9,
+                Titulo = "Artistas",
+                Color = "orange",
+                Emoji = "🇧🇷",
+                PrincipalNameIndex = "8",
+                SearchTabIndex = "11"
+            },new Categoria {
+                Id = 10,
+                Titulo = "Flores",
+                Color = "pink",
+                Emoji = "🌹",
+                PrincipalNameIndex = "9",
+                SearchTabIndex = "12"
             }
             
         );

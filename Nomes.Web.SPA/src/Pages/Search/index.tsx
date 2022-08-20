@@ -14,6 +14,8 @@ import Pensadores from "../../Components/Search/Pensadores";
 import Geeks from "../../Components/Search/Geeks";
 import LoadingIcons from "react-loading-icons";
 import { Sugestoes } from "../../Components/Sugestoes/Sugestoes";
+import Artistas from "../../Components/Search/Artistas";
+import Flores from "../../Components/Search/Flores";
 
 const Search = () => {
   const params = useParams();
@@ -193,6 +195,8 @@ const Search = () => {
         {tab === 8 && <Pensadores setTab={setTab} />}
         {tab === 9 && <Geeks setTab={setTab} />}
         {tab === 10 && <Sugestoes setTab={setTab} />}
+        {tab === 11 && <Artistas setTab={setTab} />}
+        {tab === 12 && <Flores setTab={setTab} />}
       </Box>
     </>
   );

@@ -17,7 +17,7 @@ public class CategoriasController : ControllerBase
         c.ForEach((item)=>{
             item.Count = _c.VisitaCategorias.Where((i)=> i.CategoriaId == item.Id).Count();
         });
-        return  c.OrderByDescending((a)=> a.Count).ToList();
+        return  c.OrderBy((a)=> a.Count).ToList();
     }
 
     [HttpPost(Name = "Visit")]

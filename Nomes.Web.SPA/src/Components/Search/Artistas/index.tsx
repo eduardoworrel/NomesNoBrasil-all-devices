@@ -8,17 +8,17 @@ import ApiService from "../../../Services/ApiService";
 type IFormProps = {
   setTab: (value: number) => void;
 };
-export default function Famosos({ setTab }: IFormProps) {
+export default function Artistas({ setTab }: IFormProps) {
   const params = useParams();
   const nome = params.nome ?? "";
-  window.history.replaceState(null, "", `#/6/0`);
+  window.history.replaceState(null, "", `#/11/0`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
-      const result = await ApiService.getFamosos();
+      const result = await ApiService.getArtistas();
 
-      ApiService.putVisit("5")
+      ApiService.putVisit("9")
       setResult(result);
     };
     load();
@@ -39,9 +39,9 @@ export default function Famosos({ setTab }: IFormProps) {
         ⏪ Voltar
       </Text>
       <Text color="white" style={{ float: "right" }}>
-        <b style={{ fontSize: "2em" }}>📺</b> Internacional&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🇧🇷</b> Artistas&nbsp;&nbsp;
       </Text>
-      <Divider color="pink" />
+      <Divider color="orange" />
       {!result && (
         <>
           <Text as="p" align="center">
@@ -61,17 +61,17 @@ export default function Famosos({ setTab }: IFormProps) {
         })
         .map((i: any, c: number) => (
           <Box key={c} p="sm">
-            <Card style={{ borderColor: "pink" }} variant="subtle" p="md">
+            <Card style={{ borderColor: "orange" }} variant="subtle" p="md">
               <Heading>{i.result[0].nome}</Heading>
-              <Text color="pink" size="sm">
+              <Text color="orange" size="sm">
                 {i.result[0].freq
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                 HABITANTES
               </Text>
               <div className="bag">
-                <Link to={"/results/6/" + i.result[0].nome + "/"}>
-                  <Button color="pink">Confira</Button>
+                <Link to={"/results/11/" + i.result[0].nome + "/"}>
+                  <Button color="orange">Confira</Button>
                 </Link>
               </div>
             </Card>

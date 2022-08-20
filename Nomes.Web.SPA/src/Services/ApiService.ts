@@ -1,3 +1,4 @@
+import Artistas from "../Components/Search/Artistas";
 import IMensagemInterna from "../Interfaces/IMensagemInterna";
 import {
   ASCENCAO,
@@ -8,6 +9,8 @@ import {
   ASTRONOMIA,
   PENSADORES,
   GEEKS,
+  FAMOSOS_NACIONAL,
+  FLORES,
 } from "./consts";
 const ENDPOINT_FAIXA =
   "https://servicodados.ibge.gov.br/api/v1/censos/nomes/faixa";
@@ -165,6 +168,42 @@ class ApiService {
     const result = [];
     try {
       for (let nome of FAMOSOS) {
+        result.push(await ApiService.getBasica(nome));
+      }
+      return {
+        mensagem: SUCESSO,
+        result: result,
+      };
+    } catch (e) {
+      return {
+        mensagem: ERRO,
+        result: [],
+      };
+    }
+  };
+
+  static getArtistas = async (): Promise<IMensagemInterna> => {
+    const result = [];
+    try {
+      for (let nome of FAMOSOS_NACIONAL) {
+        result.push(await ApiService.getBasica(nome));
+      }
+      return {
+        mensagem: SUCESSO,
+        result: result,
+      };
+    } catch (e) {
+      return {
+        mensagem: ERRO,
+        result: [],
+      };
+    }
+  };
+
+  static getFlores = async (): Promise<IMensagemInterna> => {
+    const result = [];
+    try {
+      for (let nome of FLORES) {
         result.push(await ApiService.getBasica(nome));
       }
       return {

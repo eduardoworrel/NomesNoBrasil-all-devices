@@ -1,16 +1,40 @@
 export const PAGINA_INICIAL = [
   "MARIA",
   "ROMARIO",
-  "MADONA",
+  "RIHANNA",
   "MARCIANO",
   "ARISTOTELES",
   "ZELDA",
   "ENZO",
   "INOCENTE",
+  "DJAVAN",
+  "ROSA"
+  
 ];
-export const FUTEBOL = ["ROMARIO", "EDMUNDO", "RIVALDO"];
+export const FUTEBOL = ["ROMARIO", "EDMUNDO", "RIVALDO","JUVENAL","RIQUELME"];
 
-export const FAMOSOS = ["MADONA", "BRITINEY", "AKON"];
+export const FAMOSOS = ["MADONA", "BRITINEY", "AKON","RIHANNA","ELVIS","STEVIE","JUSTIN","TAYLOR","EMINEM"];
+
+export const FLORES = ["ROSA","MARGARIDA","DALIA","VIOLETA","NARCISO","JASMIN", "ORQUIDEA","LIRIO","MAGNOLIA"];
+export const FAMOSOS_NACIONAL = [
+  "DJAVAN",
+  "GAL",
+  "CAETANO",
+  "CHICO",
+  "ELIS",
+  "TIM",
+  "RAUL",
+  "CAZUZA",
+  "LULU",
+  "MILTON",
+  "ZECA",
+  "RITA",
+  "NEY",
+  "DORIVAL",
+  "ALCEU",
+  "LENINE",
+
+]
 
 export const ASTRONOMIA = [
   "MARCIANO",
@@ -23,7 +47,7 @@ export const ASTRONOMIA = [
 ];
 export const PENSADORES = ["ARISTOTELES", "SOCRATES", "HERACLITO"];
 export const GEEKS = ["GOHAN", "ZELDA"];
-export const ASCENCAO = ["ENZO", "VALENTINA"];
+export const ASCENCAO = ["ENZO", "VALENTINA",];
 export const DIFERENTES = [
   "BISPO",
   "DISNEY",

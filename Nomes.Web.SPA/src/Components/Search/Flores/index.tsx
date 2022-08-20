@@ -8,17 +8,17 @@ import ApiService from "../../../Services/ApiService";
 type IFormProps = {
   setTab: (value: number) => void;
 };
-export default function Famosos({ setTab }: IFormProps) {
+export default function Flores({ setTab }: IFormProps) {
   const params = useParams();
   const nome = params.nome ?? "";
-  window.history.replaceState(null, "", `#/6/0`);
+  window.history.replaceState(null, "", `#/12/0`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
-      const result = await ApiService.getFamosos();
+      const result = await ApiService.getFlores();
 
-      ApiService.putVisit("5")
+      ApiService.putVisit("10")
       setResult(result);
     };
     load();
@@ -39,7 +39,7 @@ export default function Famosos({ setTab }: IFormProps) {
         ⏪ Voltar
       </Text>
       <Text color="white" style={{ float: "right" }}>
-        <b style={{ fontSize: "2em" }}>📺</b> Internacional&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🌹</b> Flores&nbsp;&nbsp;
       </Text>
       <Divider color="pink" />
       {!result && (
@@ -70,7 +70,7 @@ export default function Famosos({ setTab }: IFormProps) {
                 HABITANTES
               </Text>
               <div className="bag">
-                <Link to={"/results/6/" + i.result[0].nome + "/"}>
+                <Link to={"/results/12/" + i.result[0].nome + "/"}>
                   <Button color="pink">Confira</Button>
                 </Link>
               </div>
