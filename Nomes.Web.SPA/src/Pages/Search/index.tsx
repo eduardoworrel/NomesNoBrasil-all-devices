@@ -73,7 +73,7 @@ const Search = () => {
             )}
 
             <Divider />
-              <Box>
+              <Box style={{display: "inline-block", cursor: "pointer"}}>
                 <Card onClick={() => setTab(2)} style={{width:"45%", textAlign:"center", float: "left",cursor:"pointer"}} variant="subtle" color="cyan" m="xs" p="sm"> 
                 <b style={{fontSize:"1.6em"}}>🥉🥇🥈</b>
                 <Divider color="red" />
@@ -91,14 +91,14 @@ const Search = () => {
                 variant="subtle" color="cyan" m="xs" p="sm">
                 <b style={{fontSize:"1.7em"}}>
                 {clickAgrupar?
-                   <>🪚</>
+                   <>&nbsp;&nbsp;&nbsp;&nbsp;🪚&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>
                   :
                   <>👥👥</>
                   }</b>
                 <Divider />
                 <Text>
                   {clickAgrupar?
-                   <>Em construção</>
+                   <>Em breve</>
                   :
                   <>AGRUPAR 🔒</>
                   }
@@ -129,7 +129,7 @@ const Search = () => {
                 <Divider />
                 <Text>
                 {clickComparar?
-                  <>Em construção</>
+                  <>Em breve</>
                   :
                   <> COMPARAR 🔒</>
                   }

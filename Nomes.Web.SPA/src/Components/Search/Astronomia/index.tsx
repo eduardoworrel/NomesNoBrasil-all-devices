@@ -41,7 +41,7 @@ export default function Astronomia({ setTab }: IFormProps) {
       <Text color="white" style={{ float: "right" }}>
         <b style={{ fontSize: "2em" }}>🪐</b> Astronomia&nbsp;&nbsp;
       </Text>
-      <Divider />
+      <Divider color="purple" />
       {!result && (
         <>
           <Text as="p" align="center">

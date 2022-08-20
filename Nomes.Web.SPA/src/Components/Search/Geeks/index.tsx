@@ -41,7 +41,7 @@ export default function Geeks({ setTab }: IFormProps) {
       <Text color="white" style={{ float: "right" }}>
         <b style={{ fontSize: "2em" }}>🦸‍♂️</b> Geeks&nbsp;&nbsp;
       </Text>
-      <Divider />
+      <Divider color="yellow" />
       {!result && (
         <>
           <Text as="p" align="center">

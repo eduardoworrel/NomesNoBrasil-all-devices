@@ -41,7 +41,7 @@ export default function Futebol({ setTab }: IFormProps) {
       <Text color="white" style={{ float: "right" }}>
         <b style={{ fontSize: "2em" }}>⚽</b> Futebol&nbsp;&nbsp;
       </Text>
-      <Divider />
+      <Divider color="green" />
       {!result && (
         <>
           <Text as="p" align="center">

@@ -41,7 +41,7 @@ export default function Pensadores({ setTab }: IFormProps) {
       <Text color="white" style={{ float: "right" }}>
         <b style={{ fontSize: "2em" }}>🧘‍♀️</b> Pensadores&nbsp;&nbsp;
       </Text>
-      <Divider />
+      <Divider color="cyan" />
       {!result && (
         <>
           <Text as="p" align="center">

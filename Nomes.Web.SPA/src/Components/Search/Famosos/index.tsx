@@ -41,7 +41,7 @@ export default function Famosos({ setTab }: IFormProps) {
       <Text color="white" style={{ float: "right" }}>
         <b style={{ fontSize: "2em" }}>✨</b> Famosos&nbsp;&nbsp;
       </Text>
-      <Divider />
+      <Divider color="pink" />
       {!result && (
         <>
           <Text as="p" align="center">
