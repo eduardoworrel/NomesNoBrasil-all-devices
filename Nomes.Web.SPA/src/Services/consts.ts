@@ -8,12 +8,35 @@ export const PAGINA_INICIAL = [
   "ENZO",
   "INOCENTE",
   "DJAVAN",
-  "ROSA"
+  "ROSA",
+  "JUSCELINO"
   
 ];
 export const FUTEBOL = ["ROMARIO", "EDMUNDO", "RIVALDO","JUVENAL","RIQUELME"];
 
 export const FAMOSOS = ["MADONA", "BRITINEY", "AKON","RIHANNA","ELVIS","STEVIE","JUSTIN","TAYLOR","EMINEM"];
+export const PRESIDENTES = [
+  "DEODORO",
+  "FLORIANO",
+  "PRUDENTE",
+  "CAMPOS",
+  "NILO",
+  "HERMES",
+  "VENCESLAU",
+  "DELFIM",
+  "EPITACIO",
+  "WASHINGTON",
+  "GETULIO",
+  "EURICO",
+  "JUSCELINO",
+  "JANIO",
+  "ERNESTO",
+  "ITAMAR",
+  "LULA",
+  "DILMA",
+  "MICHEL",
+  "JAIR"
+  ];
 
 export const FLORES = ["ROSA","MARGARIDA","DALIA","VIOLETA","NARCISO","JASMIN", "ORQUIDEA","LIRIO","MAGNOLIA"];
 export const FAMOSOS_NACIONAL = [

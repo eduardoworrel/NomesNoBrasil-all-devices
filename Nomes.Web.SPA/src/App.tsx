@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Search from "./Pages/Search";
 import Results from "./Pages/Result";
 import { Heading } from "@dracula/dracula-ui";
+import RankingEstados from "./Pages/RankingEstados";
 
 function App() {
   return (
@@ -24,8 +25,11 @@ function App() {
 
       <Routes>
         <Route path="" element={<Search />} />
+        <Route path="/:pagina/" element={<Search />} />
         <Route path="/:pagina/:callback" element={<Search />} />
         <Route path="results/:pagina/:nome" element={<Results />} />
+        <Route path="porEstado/" element={<RankingEstados />} />
+        <Route path="porEstado/" element={<RankingEstados />} />
       </Routes>
     </main>
   );

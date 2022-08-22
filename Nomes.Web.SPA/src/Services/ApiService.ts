@@ -1,5 +1,6 @@
 import Artistas from "../Components/Search/Artistas";
 import IMensagemInterna from "../Interfaces/IMensagemInterna";
+import returned from "../Interfaces/returned";
 import {
   ASCENCAO,
   DIFERENTES,
@@ -11,6 +12,7 @@ import {
   GEEKS,
   FAMOSOS_NACIONAL,
   FLORES,
+  PRESIDENTES,
 } from "./consts";
 const ENDPOINT_FAIXA =
   "https://servicodados.ibge.gov.br/api/v1/censos/nomes/faixa";
@@ -23,10 +25,26 @@ const ENDPOINT_RANKING =
   "https://api2.nomesnobrasil.com/Categorias";
   const SUGESTOES =
   "https://api2.nomesnobrasil.com/Sugestoes";
+const UF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+const MALHA_UF = "https://servicodados.ibge.gov.br/api/v3/malhas/estados/"
 
 const SUCESSO = 1,
   ERRO = 0;
 class ApiService {
+
+
+
+  static getEstados = async (): Promise<returned[]> => {
+    
+    try {
+      const ufs : returned[] = await (await fetch(UF)).json();
+      return ufs
+    } catch (e) {
+      return  []
+    }
+  };
+  
+
   static sendMensage = (msg : string) =>{
     try {
       const body = {
@@ -82,7 +100,25 @@ class ApiService {
       };
     }
   };
-  static getRanking = async (quantidade = 15): Promise<IMensagemInterna> => {
+  static getRankingByEstado = async (quantidade = 15,estado:number | string): Promise<IMensagemInterna> => {
+    try {
+      let stringBuilder = "?regiao="+estado+"&qtd=" + quantidade;
+      const ranking = await (
+        await fetch(ENDPOINT_RANKING + stringBuilder)
+      ).json();
+
+      return {
+        mensagem: SUCESSO,
+        result: ranking,
+      };
+    } catch (e) {
+      return {
+        mensagem: ERRO,
+        result: [],
+      };
+    }
+  };
+  static getRanking = async (quantidade = 50): Promise<IMensagemInterna> => {
     try {
       let stringBuilder = "?qtd=" + quantidade;
       const ranking = await (
@@ -101,7 +137,7 @@ class ApiService {
     }
   };
 
-  static getCategorias = async (): Promise<IMensagemInterna> => {
+  static getCategorias = async (tentativa = 0): Promise<IMensagemInterna> => {
     
     try {
       const cat = await (await fetch(CATEGORIAS)).json();
@@ -111,24 +147,29 @@ class ApiService {
         result: cat,
       };
     } catch (e) {
-      return {
-        mensagem: ERRO,
-        result: [],
-      };
+      if(tentativa == 3){
+
+        return {
+          mensagem: ERRO,
+          result: [],
+        };
+      }else{
+        return this.getCategorias(tentativa + 1)
+      }
     }
   };
+  
   static putVisit = (categoriaId : string): void => {
     
-    try {
-      const body = {
-        method: 'POST',
-      }
-    fetch(CATEGORIAS+"?categoriaId=" + categoriaId, body)   
-     
-    } catch (e) {
-     alert(e)
+  
+    const body = {
+      method: 'POST',
     }
+    fetch(CATEGORIAS+"?categoriaId=" + categoriaId, body).catch((e)=>{
+     
+    })
   };
+
   static getPaginaInicial = async (): Promise<IMensagemInterna> => {
     const result = [];
     try {
@@ -204,6 +245,24 @@ class ApiService {
     const result = [];
     try {
       for (let nome of FLORES) {
+        result.push(await ApiService.getBasica(nome));
+      }
+      return {
+        mensagem: SUCESSO,
+        result: result,
+      };
+    } catch (e) {
+      return {
+        mensagem: ERRO,
+        result: [],
+      };
+    }
+  };
+
+  static getPresidentes = async (): Promise<IMensagemInterna> => {
+    const result = [];
+    try {
+      for (let nome of PRESIDENTES) {
         result.push(await ApiService.getBasica(nome));
       }
       return {

@@ -1,11 +1,13 @@
 import { Box, Button, Divider, Heading, Text } from "@dracula/dracula-ui";
 import { useState } from "react";
 import ApiService from "../../Services/ApiService";
+
 type IFormProps = {
   setTab: (value: number) => void;
+  setRef: (value: number) => void;
 };
 
-export const Sugestoes = ({ setTab }: IFormProps) => {
+export const Sugestoes = ({ setTab, setRef }: IFormProps) => {
 
   window.history.replaceState(null, "", `#/10/0`);
   const [style,setStyle] = useState({
@@ -40,6 +42,7 @@ export const Sugestoes = ({ setTab }: IFormProps) => {
         onClick={() => {
           window.history.replaceState(null, "", "#/1/0");
           setTab(1);
+          setRef(10)
         }}
       >
         {" "}

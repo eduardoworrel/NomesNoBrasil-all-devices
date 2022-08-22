@@ -1,5 +1,5 @@
 import { Box, Card, ColorNames, Divider, Heading, Text } from "@dracula/dracula-ui";
-import { ReactChild, ReactFragment, ReactPortal, useEffect, useState } from "react";
+import { ReactChild, ReactFragment, ReactPortal, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Ranking from "../../Components/Search/Ranking";
 import SearchBar from "../../Components/Search/SearchBar";
@@ -16,13 +16,15 @@ import LoadingIcons from "react-loading-icons";
 import { Sugestoes } from "../../Components/Sugestoes/Sugestoes";
 import Artistas from "../../Components/Search/Artistas";
 import Flores from "../../Components/Search/Flores";
+import Presidentes from "../../Components/Search/Presidentes";
+import { scrollElementIntoView } from "../../Services/scroll";
 
 const Search = () => {
   const params = useParams();
 
   const paginaCallback = params.pagina ? parseInt(params.pagina) : 1;
 
-  const callback = params.callback && (parseInt(params.callback) ?? 0);
+  const callback = params.callback && (params.callback ?? "");
 
   const [tab, setTab] = useState(paginaCallback);
   const [result, setResult] = useState<IMensagemInterna | null>(null);
@@ -31,16 +33,37 @@ const Search = () => {
   const [clickAgrupar, setCA] = useState(false);
   const [clickComparar, setCC] = useState(false);
 
+  const [ref, setRef] = useState(0);
+  
   useEffect(() => {
+
+    
     const load = async () => {
-      const result = await ApiService.getPaginaInicial();
-      const cat = await ApiService.getCategorias();
-      
-      setCat(cat);
-      setResult(result);
+      try{
+        if(!cat){
+          const categoria = await ApiService.getCategorias();
+          setCat(categoria);
+        }
+        if(ref != 0){
+          const reference = document.querySelector(
+            `.from-aba-`+ref
+            ) as HTMLElement
+            scrollElementIntoView(reference,'smooth')
+            setRef(0)
+        }
+      }catch{}     
+       try{
+        if(!result){
+          const result = await ApiService.getPaginaInicial();
+          setResult(result);
+        }
+        
+       }catch{}    
+        
+        
     };
     load();
-  }, []);
+  }, [ref]);
 
   return (
     <>
@@ -52,31 +75,14 @@ const Search = () => {
             </Heading>
 
             <SearchBar />
-            {callback === 1 && (
-              <>
-              <Box style={{ textAlign: "center" }}>
-                <Text color="white">
-                  Não conseguimos encontrar o nome <b style={{ fontSize: "2em" }}>😢</b> <br/>
-               </Text>
-               
-              </Box>
-              <Card variant="subtle" color="yellow" p="xs">
-
-                <Text color="white">
-                  <small style={{textAlign: "justify"}}>
-                    - Para o Brasil todo só conseguimos exibir nomes com mais de <strong>19</strong> ocorrencias.<br/>
-                    - Para cada estado só conseguimos exibir nomes com mais de <strong>14</strong> ocorrencias.
-                  <br/> <strong>Fonte: IBGE, Censo Demográfico 2010. </strong></small>
-                </Text>
-                
-              </Card>
-              <br/> 
-               </>
-            )}
 
             <Divider />
-              <Box style={{display: "inline-block", cursor: "pointer"}}>
-                <Card onClick={() => setTab(2)} style={{width:"45%", textAlign:"center", float: "left",cursor:"pointer"}} variant="subtle" color="cyan" m="xs" p="sm"> 
+              <Box style={{justifyContent:"center", display: "flex",flexFlow:"row wrap", cursor: "pointer", width:"100%"}}>
+                <Card 
+                className="from-aba-2"
+                onClick={() => {
+                  setTab(2)
+                  }} style={{width:"45%", textAlign:"center", float: "left",cursor:"pointer"}} variant="subtle" color="cyan" m="xs" p="sm"> 
                 <b style={{fontSize:"1.6em"}}>🥉🥇🥈</b>
                 <Divider color="red" />
                 <Text >
@@ -106,7 +112,8 @@ const Search = () => {
                   }
                 </Text>
                 </Card>
-                <Card  onClick={() => setTab(10)}  style={{width:"45%", textAlign:"center", float: "left"}} variant="subtle" color="cyan" m="xs" p="sm">
+                <Card    className="from-aba-10"
+                onClick={() => setTab(10)}  style={{width:"45%", textAlign:"center", float: "left"}} variant="subtle" color="cyan" m="xs" p="sm">
                 <b style={{fontSize:"1.5em"}}>💡</b>
                 <Divider color="pink" />
                 <Text>
@@ -155,7 +162,9 @@ const Search = () => {
             )}
               {cat && cat.result.map((i: {id:number,count:number;color: ColorNames; emoji: string; titulo: string; principalNameIndex: string ; searchTabIndex: string;})=>
                 i.titulo != "Populares" &&
-                <Box key={i.id}>
+                <Box 
+                className={"from-aba-"+i.searchTabIndex}
+                key={i.id}>
                   <Card
                     onClick={() => setTab(parseInt(i.searchTabIndex))}
                     color={i.color}
@@ -185,18 +194,19 @@ const Search = () => {
             </Box>
           </>
         )}
-        {tab === 2 && <Ranking setTab={setTab} />}
+        {tab === 2 && <Ranking setRef={setRef} setTab={setTab} />}
 
-        {tab === 3 && <Diferentes setTab={setTab} />}
-        {tab === 4 && <Ascencao setTab={setTab} />}
-        {tab === 5 && <Futebol setTab={setTab} />}
-        {tab === 6 && <Famosos setTab={setTab} />}
-        {tab === 7 && <Astronomia setTab={setTab} />}
-        {tab === 8 && <Pensadores setTab={setTab} />}
-        {tab === 9 && <Geeks setTab={setTab} />}
-        {tab === 10 && <Sugestoes setTab={setTab} />}
-        {tab === 11 && <Artistas setTab={setTab} />}
-        {tab === 12 && <Flores setTab={setTab} />}
+        {tab === 3 && <Diferentes setRef={setRef} setTab={setTab} />}
+        {tab === 4 && <Ascencao setRef={setRef} setTab={setTab} />}
+        {tab === 5 && <Futebol setRef={setRef} setTab={setTab} />}
+        {tab === 6 && <Famosos setRef={setRef} setTab={setTab} />}
+        {tab === 7 && <Astronomia setRef={setRef} setTab={setTab} />}
+        {tab === 8 && <Pensadores setRef={setRef} setTab={setTab} />}
+        {tab === 9 && <Geeks setRef={setRef} setTab={setTab} />}
+        {tab === 10 && <Sugestoes setRef={setRef} setTab={setTab} />}
+        {tab === 11 && <Artistas setRef={setRef} setTab={setTab} />}
+        {tab === 12 && <Flores setRef={setRef} setTab={setTab} />}
+        {tab === 13 && <Presidentes setRef={setRef} setTab={setTab} />}
       </Box>
     </>
   );

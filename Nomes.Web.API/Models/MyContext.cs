@@ -53,7 +53,7 @@ public class MyContext : DbContext
                 Id = 5,
                 Titulo = "Internacional",
                 Color = "pink",
-                Emoji = "📺",
+                Emoji = "🧑‍🎤",
                 PrincipalNameIndex = "2",
                 SearchTabIndex = "6"
             },
@@ -86,16 +86,25 @@ public class MyContext : DbContext
                 Id = 9,
                 Titulo = "Artistas",
                 Color = "orange",
-                Emoji = "🇧🇷",
+                Emoji = "👩‍🎤",
                 PrincipalNameIndex = "8",
                 SearchTabIndex = "11"
-            },new Categoria {
+            }
+            ,new Categoria {
                 Id = 10,
                 Titulo = "Flores",
                 Color = "pink",
                 Emoji = "🌹",
                 PrincipalNameIndex = "9",
                 SearchTabIndex = "12"
+            }
+            ,new Categoria {
+                Id = 11,
+                Titulo = "Presidentes",
+                Color = "green",
+                Emoji = "🇧🇷",
+                PrincipalNameIndex = "10",
+                SearchTabIndex = "13"
             }
             
         );

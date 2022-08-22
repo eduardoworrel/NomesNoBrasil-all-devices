@@ -11,18 +11,20 @@ type IFormProps = {
   setTab: (value: number) => void;
   setRef: (value: number) => void;
 };
-export default function Geeks({ setTab, setRef }: IFormProps) {
+export default function Presidentes({ setTab, setRef }: IFormProps) {
+  
   const  [searchParams, setSearchParams] = useSearchParams();
  
-  window.history.replaceState(null, "", `#/9/0`);
+  window.history.replaceState(null, "", `#/13/0`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
-      const result = await ApiService.getGeeks();
+      const result = await ApiService.getPresidentes();
 
-      ApiService.putVisit("8")
+      ApiService.putVisit("11")
       setResult(result);
+      
       const nome = searchParams.get("callback") ?? "";
       setSearchParams({})
       if(nome){
@@ -45,16 +47,16 @@ export default function Geeks({ setTab, setRef }: IFormProps) {
         onClick={() => {
           window.history.replaceState(null, "", "#/1/0");
           setTab(1);
-          setRef(9)
+          setRef(13)
         }}
       >
         {" "}
         ⏪ Voltar
       </Text>
       <Text color="white" style={{ float: "right" }}>
-        <b style={{ fontSize: "2em" }}>🦸‍♂️</b> Geeks&nbsp;&nbsp;
+        <b style={{ fontSize: "2em" }}>🇧🇷</b> Presidentes&nbsp;&nbsp;
       </Text>
-      <Divider color="yellow" />
+      <Divider color="green" />
       {!result && (
         <>
           <Text as="p" align="center">
@@ -62,31 +64,23 @@ export default function Geeks({ setTab, setRef }: IFormProps) {
           </Text>
         </>
       )}
-      {result?.result
-        .sort(function (a: any, b: any) {
-          if (a.result[0].rank > b.result[0].rank) {
-            return 1;
-          }
-          if (a.result[0].rank < b.result[0].rank) {
-            return -1;
-          }
-          return 0;
-        })
+      {result && [...result?.result]
+        .reverse()
         .map((i: any, c: number) => (
-          <Box 
+          <Box
           className={"i-am-" + i.result[0].nome}
           key={c} p="sm">
-            <Card style={{ borderColor: "yellow" }} variant="subtle" p="md">
+            <Card style={{ borderColor: "green" }} variant="subtle" p="md">
               <Heading>{i.result[0].nome}</Heading>
-              <Text color="yellow" size="sm">
+              <Text color="green" size="sm">
                 {i.result[0].freq
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                 HABITANTES
               </Text>
               <div className="bag">
-                <Link to={"/results/9/" + i.result[0].nome + "/"}>
-                  <Button color="yellow">Confira</Button>
+                <Link to={"/results/13/" + i.result[0].nome + "/"}>
+                  <Button color="green">Confira</Button>
                 </Link>
               </div>
             </Card>
