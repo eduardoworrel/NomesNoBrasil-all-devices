@@ -1,4 +1,4 @@
-import { Box, Card, ColorNames, Divider, Heading, Text } from "@dracula/dracula-ui";
+import { Box, Card, ColorNames, Divider, Heading, Text } from "dracula-ui";
 import { ReactChild, ReactFragment, ReactPortal, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Ranking from "../../Components/Search/Ranking";

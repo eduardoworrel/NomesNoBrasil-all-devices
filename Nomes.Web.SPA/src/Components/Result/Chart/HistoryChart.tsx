@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-import { Heading } from "@dracula/dracula-ui";
+import { Heading } from "dracula-ui";
 
 import IFaixa from "../../../Interfaces/IFaixa";
 

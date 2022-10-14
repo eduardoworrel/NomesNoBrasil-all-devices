@@ -1,4 +1,4 @@
-import { Select } from "@dracula/dracula-ui";
+import { Select } from "dracula-ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 interface IProps {

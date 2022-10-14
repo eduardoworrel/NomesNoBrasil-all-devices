@@ -1,4 +1,4 @@
-import { Heading, Box, Text } from "@dracula/dracula-ui";
+import { Heading, Box, Text } from "dracula-ui";
 import IBasica from "../../../Interfaces/IBasica";
 
 interface IProps {
