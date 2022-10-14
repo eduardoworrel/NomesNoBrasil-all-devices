@@ -78,6 +78,9 @@ const Ranking = ({ setTab,setRef }: IFormProps) => {
         </Heading>
       </Card>
       </Link>
+      <Link to={"/porMunicipio/"}
+        style={{ cursor: "pointer" ,color:"white", textDecoration:"none"}}>
+       
       <Card 
       style={{
         display: "flex",
@@ -88,10 +91,10 @@ const Ranking = ({ setTab,setRef }: IFormProps) => {
       p="xs" m="xs" borderColor="orange"  variant="subtle">
         <b style={{ fontSize: "2.5em" }}>🌇</b>
         <Heading size="lg" >
-        POR MUNICÍPIO 🔒
+        POR MUNICÍPIO 
         </Heading>
       </Card>
-
+      </Link>
         <br/>
       <Divider color="red" />
         <Heading >&nbsp;Todo o Brasil</Heading>

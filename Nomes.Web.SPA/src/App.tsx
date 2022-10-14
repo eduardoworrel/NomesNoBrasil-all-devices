@@ -7,6 +7,8 @@ import Search from "./Pages/Search";
 import Results from "./Pages/Result";
 import { Heading } from "@dracula/dracula-ui";
 import RankingEstados from "./Pages/RankingEstados";
+import RankingMunicipios from "./Pages/RankingMunicipios";
+import Comparar from "./Pages/Comparar";
 
 function App() {
   return (
@@ -29,7 +31,8 @@ function App() {
         <Route path="/:pagina/:callback" element={<Search />} />
         <Route path="results/:pagina/:nome" element={<Results />} />
         <Route path="porEstado/" element={<RankingEstados />} />
-        <Route path="porEstado/" element={<RankingEstados />} />
+        <Route path="porMunicipio/" element={<RankingMunicipios />} />
+        <Route path="comparar/" element={<Comparar />} />
       </Routes>
     </main>
   );

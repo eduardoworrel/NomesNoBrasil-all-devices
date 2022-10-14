@@ -17,6 +17,7 @@ function Results() {
   
   const  [searchParams, setSearchParams] = useSearchParams();
   const rankEstado = searchParams.get("estado") ?? "";
+  const rankMunicipio = searchParams.get("municipio") ?? "";
   
   const params = useParams();
   const nome = params.nome ?? "";
@@ -54,7 +55,14 @@ function Results() {
       </Text>
       <Text>
       
-      <Link to={!rankEstado ? ("/" + abaCallback+ "?callback="+nome) : "/porEstado/?estado="+ rankEstado+"&nome="+nome}
+      <Link to={
+        !rankEstado && !rankMunicipio ? 
+          ("/" + abaCallback+ "?callback="+nome) 
+          :
+          rankEstado ?
+                "/porEstado/?estado="+ rankEstado+"&nome="+nome
+              :  "/porMunicipio/?municipio="+ rankMunicipio+"&nome="+nome
+              }
         style={{ cursor: "pointer" ,color:"white", textDecoration:"none"}}>
        
         ⏪ Voltar
