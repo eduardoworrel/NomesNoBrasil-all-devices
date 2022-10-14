@@ -1,4 +1,4 @@
-import { Box, Text, Button, Card, Heading, Divider } from "@dracula/dracula-ui";
+import { Box, Text, Button, Card, Heading, Divider } from "dracula-ui";
 import { useEffect, useState } from "react";
 import LoadingIcons from "react-loading-icons";
 import { Link, useSearchParams } from "react-router-dom";

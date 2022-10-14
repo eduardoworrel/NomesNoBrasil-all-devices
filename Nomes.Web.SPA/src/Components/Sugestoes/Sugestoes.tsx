@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Heading, Text } from "@dracula/dracula-ui";
+import { Box, Button, Divider, Heading, Text } from "dracula-ui";
 import { useState } from "react";
 import ApiService from "../../Services/ApiService";
 

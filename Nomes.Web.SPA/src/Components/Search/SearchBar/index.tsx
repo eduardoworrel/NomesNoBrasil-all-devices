@@ -1,4 +1,4 @@
-import { Box, Button, Input } from "@dracula/dracula-ui";
+import { Box, Button, Input } from "dracula-ui";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 

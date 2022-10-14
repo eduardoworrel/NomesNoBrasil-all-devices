@@ -4,7 +4,7 @@ import {
   Divider,
   Heading,
   Text,
-} from "@dracula/dracula-ui";
+} from "dracula-ui";
 import { HistoryChart } from "../../Components/Result/Chart/HistoryChart";
 import Dados from "../../Components/Result/Dados";
 import Estados from "../../Components/Result/Estados";

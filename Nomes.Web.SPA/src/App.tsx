@@ -1,12 +1,11 @@
 import React from "react";
-
-import "@dracula/dracula-ui/styles/dracula-ui.css";
+import 'dracula-ui/styles/dracula-ui.css'
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Search from "./Pages/Search";
 import Results from "./Pages/Result";
-import { Heading } from "@dracula/dracula-ui";
 import RankingEstados from "./Pages/RankingEstados";
+import { Heading } from "dracula-ui";
 import RankingMunicipios from "./Pages/RankingMunicipios";
 import Comparar from "./Pages/Comparar";
 
