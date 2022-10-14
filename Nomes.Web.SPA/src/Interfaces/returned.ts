@@ -3,4 +3,11 @@ export default  interface returned {
     sigla:string,
     nome: string,
     img: string
+    microrregiao: undefined | {
+      mesorregiao: undefined | {
+        UF: undefined | {
+          sigla:string
+        }
+      }
+    }
   }

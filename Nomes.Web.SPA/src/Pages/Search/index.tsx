@@ -18,6 +18,7 @@ import Artistas from "../../Components/Search/Artistas";
 import Flores from "../../Components/Search/Flores";
 import Presidentes from "../../Components/Search/Presidentes";
 import { scrollElementIntoView } from "../../Services/scroll";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const params = useParams();
@@ -112,7 +113,7 @@ const Search = () => {
                   }
                 </Text>
                 </Card>
-                <Card    className="from-aba-10"
+                <Card className="from-aba-10"
                 onClick={() => setTab(10)}  style={{width:"45%", textAlign:"center", float: "left"}} variant="subtle" color="cyan" m="xs" p="sm">
                 <b style={{fontSize:"1.5em"}}>💡</b>
                 <Divider color="pink" />
@@ -122,30 +123,22 @@ const Search = () => {
                 </Text>
                 
                 </Card>
+                <Link style={{textDecoration:"none",display:"contents"}} to={"/comparar/"}>
                  <Card 
-                  onClick={()=>{
-                    setCC(true)
-                    setTimeout(()=>{
-                      setCC(false)
-                    },2000)
-                  }}
                  style={{width:"45%", textAlign:"center", float: "left"}} variant="subtle" color="cyan" m="xs" p="sm">
-                <b style={{fontSize:"1.5em"}}>{clickComparar?
-                   <>🔧</>
-                  :
-                  <>👤❌👤</>
-                  }</b>
-                <Divider />
+             
+                <b style={{fontSize:"1.5em"}}>
+                👤 ❌ 👤
+                 </b>
+                <Divider color="yellow"  />
                 <Text>
-                {clickComparar?
-                  <>Em breve</>
-                  :
-                  <> COMPARAR 🔒</>
-                  }
+               
+                  COMPARAR
+                  
                   
                 </Text>
-                
                 </Card>
+                </Link>
               </Box>
             <Divider style={{clear:"both"}}/>
             <Heading size="sm" className="centered">

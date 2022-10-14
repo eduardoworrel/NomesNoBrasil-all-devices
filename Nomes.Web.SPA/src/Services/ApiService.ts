@@ -25,8 +25,8 @@ const ENDPOINT_RANKING =
   "https://api2.nomesnobrasil.com/Categorias";
   const SUGESTOES =
   "https://api2.nomesnobrasil.com/Sugestoes";
-const UF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
-const MALHA_UF = "https://servicodados.ibge.gov.br/api/v3/malhas/estados/"
+  const UF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+  const MUNICIPIOS = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios";
 
 const SUCESSO = 1,
   ERRO = 0;
@@ -38,6 +38,17 @@ class ApiService {
     
     try {
       const ufs : returned[] = await (await fetch(UF)).json();
+      return ufs
+    } catch (e) {
+      return  []
+    }
+  };
+  
+
+  static getMunicipios = async (): Promise<returned[]> => {
+    
+    try {
+      const ufs : returned[] = await (await fetch(MUNICIPIOS)).json();
       return ufs
     } catch (e) {
       return  []
@@ -100,7 +111,7 @@ class ApiService {
       };
     }
   };
-  static getRankingByEstado = async (quantidade = 15,estado:number | string): Promise<IMensagemInterna> => {
+  static getRankingByRegiaoIBGE = async (quantidade = 15,estado:number | string): Promise<IMensagemInterna> => {
     try {
       let stringBuilder = "?regiao="+estado+"&qtd=" + quantidade;
       const ranking = await (
@@ -118,6 +129,7 @@ class ApiService {
       };
     }
   };
+
   static getRanking = async (quantidade = 50): Promise<IMensagemInterna> => {
     try {
       let stringBuilder = "?qtd=" + quantidade;
