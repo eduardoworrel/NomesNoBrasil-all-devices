@@ -11,23 +11,22 @@ type IFormProps = {
   setRef: (value: number) => void;
 };
 export default function Ascencao({ setTab, setRef }: IFormProps) {
-  const  [searchParams, setSearchParams] = useSearchParams();
-  
+  const [searchParams, setSearchParams] = useSearchParams();
+
   window.history.replaceState(null, "", `#/4/0`);
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
       const result = await ApiService.getAsncencao();
-      ApiService.putVisit("2")
+      ApiService.putVisit("2");
       setResult(result);
       const nome = searchParams.get("callback") ?? "";
-  setSearchParams({})
-      if(nome){
+      setSearchParams({});
+      if (nome) {
         const reference = document.querySelector(
-          ".i-am-"+nome
-        ) as HTMLElement
-        if(reference)
-        scrollElementIntoView(reference,'smooth')
+          ".i-am-" + nome
+        ) as HTMLElement;
+        if (reference) scrollElementIntoView(reference, "smooth");
       }
     };
     load();
@@ -42,7 +41,7 @@ export default function Ascencao({ setTab, setRef }: IFormProps) {
         onClick={() => {
           window.history.replaceState(null, "", "#/1/0");
           setTab(1);
-          setRef(4)
+          setRef(4);
         }}
       >
         {" "}
@@ -71,11 +70,7 @@ export default function Ascencao({ setTab, setRef }: IFormProps) {
           return 0;
         })
         .map((i: any, c: number) => (
-          <Box key={c} p="sm"
-          
-          className={"i-am-" + i.result[0].nome}
-          >
-            
+          <Box key={c} p="sm" className={"i-am-" + i.result[0].nome}>
             <Card color="orange" variant="subtle" p="md">
               <Heading>{i.result[0].nome}</Heading>
               <Text color="white" size="sm">

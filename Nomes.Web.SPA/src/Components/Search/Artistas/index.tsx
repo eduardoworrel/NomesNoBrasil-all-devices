@@ -10,10 +10,9 @@ type IFormProps = {
   setTab: (value: number) => void;
   setRef: (value: number) => void;
 };
-export default function Artistas({ setTab,setRef }: IFormProps) {
+export default function Artistas({ setTab, setRef }: IFormProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const  [searchParams, setSearchParams] = useSearchParams();
- 
   window.history.replaceState(null, "", `#/11`);
 
   const [result, setResult] = useState<IMensagemInterna | null>(null);
@@ -21,20 +20,17 @@ export default function Artistas({ setTab,setRef }: IFormProps) {
     const load = async () => {
       const result = await ApiService.getArtistas();
 
-      ApiService.putVisit("9")
+      ApiService.putVisit("9");
       setResult(result);
       const nome = searchParams.get("callback") ?? "";
-    setSearchParams({})
+      setSearchParams({});
 
-      if(nome){
-        
+      if (nome) {
         const reference = document.querySelector(
-          ".i-am-"+nome
-        ) as HTMLElement
-     
-        if(reference)
-        scrollElementIntoView(reference,'smooth')
-        
+          ".i-am-" + nome
+        ) as HTMLElement;
+
+        if (reference) scrollElementIntoView(reference, "smooth");
       }
     };
     load();
@@ -77,10 +73,7 @@ export default function Artistas({ setTab,setRef }: IFormProps) {
           return 0;
         })
         .map((i: any, c: number) => (
-          <Box key={c} p="sm"
-              
-          className={"i-am-" + i.result[0].nome}>
-        
+          <Box key={c} p="sm" className={"i-am-" + i.result[0].nome}>
             <Card style={{ borderColor: "orange" }} variant="subtle" p="md">
               <Heading>{i.result[0].nome}</Heading>
               <Text color="orange" size="sm">

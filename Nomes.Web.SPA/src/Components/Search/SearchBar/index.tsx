@@ -7,12 +7,11 @@ const SearchBar = (): JSX.Element => {
   const params = useParams();
   const callback = params.callback && (parseInt(params.callback) ?? 0);
 
-  
   const [nome, setNome] = useState(params.nome ?? "");
   const handleNovaBusca = () => {
     if (nome) {
-      history(`/results/1/` + nome )
-      window.location.reload()
+      history(`/results/1/` + nome);
+      window.location.reload();
     }
   };
   return (

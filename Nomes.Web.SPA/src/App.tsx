@@ -1,5 +1,5 @@
 import React from "react";
-import 'dracula-ui/styles/dracula-ui.css'
+import "dracula-ui/styles/dracula-ui.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Search from "./Pages/Search";

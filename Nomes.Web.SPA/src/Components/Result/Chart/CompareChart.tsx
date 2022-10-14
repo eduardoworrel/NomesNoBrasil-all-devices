@@ -28,23 +28,22 @@ interface IProps {
 }
 
 export const CompareChart = ({ faixas }: IProps) => {
-  
-
   const dados = {
     labels: faixas[0].map((a) => a.faixa),
-    datasets: 
-      faixas.filter(faixa=>faixa != null && faixa.length > 0)
-      .map((faixa)=>{
-        
-          return {
-            label: faixa[0].nome,
-            data: faixa.map((a) => a.freq),
-            borderColor: '#'+(0x1000000+Math.random()*0xffffff).toString(16).substr(1,6),
-            backgroundColor:'#'+(0x1000000+Math.random()*0xffffff).toString(16).substr(1,6),
-          };
-        
-      })
-    ,
+    datasets: faixas
+      .filter((faixa) => faixa != null && faixa.length > 0)
+      .map((faixa) => {
+        return {
+          label: faixa[0].nome,
+          data: faixa.map((a) => a.freq),
+          borderColor:
+            "#" +
+            (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
+          backgroundColor:
+            "#" +
+            (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
+        };
+      }),
   };
   return (
     <>

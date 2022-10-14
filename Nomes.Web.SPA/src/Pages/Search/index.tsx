@@ -1,5 +1,12 @@
 import { Box, Card, ColorNames, Divider, Heading, Text } from "dracula-ui";
-import { ReactChild, ReactFragment, ReactPortal, useEffect, useRef, useState } from "react";
+import {
+  ReactChild,
+  ReactFragment,
+  ReactPortal,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import Ranking from "../../Components/Search/Ranking";
 import SearchBar from "../../Components/Search/SearchBar";
@@ -37,8 +44,6 @@ const Search = () => {
   const [ref, setRef] = useState(0);
 
   useEffect(() => {
-
-
     const load = async () => {
       try {
         if (!cat) {
@@ -48,20 +53,17 @@ const Search = () => {
         if (ref != 0) {
           const reference = document.querySelector(
             `.from-aba-` + ref
-          ) as HTMLElement
-          scrollElementIntoView(reference, 'smooth')
-          setRef(0)
+          ) as HTMLElement;
+          scrollElementIntoView(reference, "smooth");
+          setRef(0);
         }
-      } catch { }
+      } catch {}
       try {
         if (!result) {
           const result = await ApiService.getPaginaInicial();
           setResult(result);
         }
-
-      } catch { }
-
-
+      } catch {}
     };
     load();
   }, [ref]);
@@ -78,62 +80,85 @@ const Search = () => {
             <SearchBar />
 
             <Divider />
-            <Box style={{ justifyContent: "center", display: "flex", flexFlow: "row wrap", cursor: "pointer", width: "100%" }}>
+            <Box
+              style={{
+                justifyContent: "center",
+                display: "flex",
+                flexFlow: "row wrap",
+                cursor: "pointer",
+                width: "100%",
+              }}
+            >
               <Card
                 className="from-aba-2"
                 onClick={() => {
-                  setTab(2)
-                }} style={{ width: "45%", textAlign: "center", float: "left", cursor: "pointer" }} variant="subtle" color="cyan" m="xs" p="sm">
+                  setTab(2);
+                }}
+                style={{
+                  width: "45%",
+                  textAlign: "center",
+                  float: "left",
+                  cursor: "pointer",
+                }}
+                variant="subtle"
+                color="cyan"
+                m="xs"
+                p="sm"
+              >
                 <b style={{ fontSize: "1.6em" }}>🥉🥇🥈</b>
                 <Divider color="red" />
-                <Text >
-                  POPULARES
-                </Text>
+                <Text>POPULARES</Text>
               </Card>
 
-              <Link style={{ textDecoration: "none", display: "contents" }} to={"/agrupar/"}>
-                <Card style={{ width: "45%", textAlign: "center", float: "left" }}
+              <Link
+                style={{ textDecoration: "none", display: "contents" }}
+                to={"/agrupar/"}
+              >
+                <Card
+                  style={{ width: "45%", textAlign: "center", float: "left" }}
                   onClick={() => {
-                    setCA(true)
+                    setCA(true);
                     setTimeout(() => {
-                      setCA(false)
-                    }, 2000)
+                      setCA(false);
+                    }, 2000);
                   }}
-                  variant="subtle" color="cyan" m="xs" p="sm">
-                  <b style={{ fontSize: "1.7em" }}>
-                    👥👥
-                  </b>
-                  <Divider  color="purple"  />
-                  <Text>
-
-                    AGRUPAR
-
-                  </Text>
+                  variant="subtle"
+                  color="cyan"
+                  m="xs"
+                  p="sm"
+                >
+                  <b style={{ fontSize: "1.7em" }}>👥👥</b>
+                  <Divider color="purple" />
+                  <Text>AGRUPAR</Text>
                 </Card>
               </Link>
-              <Card className="from-aba-10"
-                onClick={() => setTab(10)} style={{ width: "45%", textAlign: "center", float: "left" }} variant="subtle" color="cyan" m="xs" p="sm">
+              <Card
+                className="from-aba-10"
+                onClick={() => setTab(10)}
+                style={{ width: "45%", textAlign: "center", float: "left" }}
+                variant="subtle"
+                color="cyan"
+                m="xs"
+                p="sm"
+              >
                 <b style={{ fontSize: "1.5em" }}>💡</b>
                 <Divider color="pink" />
-                <Text>
-                  CONTRIBUIR
-                </Text>
-
+                <Text>CONTRIBUIR</Text>
               </Card>
-              <Link style={{ textDecoration: "none", display: "contents" }} to={"/comparar/"}>
+              <Link
+                style={{ textDecoration: "none", display: "contents" }}
+                to={"/comparar/"}
+              >
                 <Card
-                  style={{ width: "45%", textAlign: "center", float: "left" }} variant="subtle" color="cyan" m="xs" p="sm">
-
-                  <b style={{ fontSize: "1.5em" }}>
-                    👤 ❌ 👤
-                  </b>
+                  style={{ width: "45%", textAlign: "center", float: "left" }}
+                  variant="subtle"
+                  color="cyan"
+                  m="xs"
+                  p="sm"
+                >
+                  <b style={{ fontSize: "1.5em" }}>👤 ❌ 👤</b>
                   <Divider color="yellow" />
-                  <Text>
-
-                    COMPARAR
-
-
-                  </Text>
+                  <Text>COMPARAR</Text>
                 </Card>
               </Link>
             </Box>
@@ -150,37 +175,58 @@ const Search = () => {
                   </Text>
                 </>
               )}
-              {cat && cat.result.map((i: { id: number, count: number; color: ColorNames; emoji: string; titulo: string; principalNameIndex: string; searchTabIndex: string; }) =>
-                i.titulo != "Populares" &&
-                <Box
-                  className={"from-aba-" + i.searchTabIndex}
-                  key={i.id}>
-                  <Card
-                    onClick={() => setTab(parseInt(i.searchTabIndex))}
-                    color={i.color}
-                    style={i.color == "white" ? { borderColor: "white" } : {}}
-                    variant="subtle"
-                    p="sm"
-                    m="xs"
-                  >
-                    <Text size="lg" as="span" align="right">
-                      <small>{i.count} 👀</small>
-                    </Text>
-                    <Heading style={{ marginTop: "-30px" }} color={i.color} size="lg">
-                      <b style={{ fontSize: "2em" }}>{i.emoji}</b> {i.titulo}
-                    </Heading>
-                    <Text color={i.color} size="xs" align="right">
-                      {result?.result[i.principalNameIndex].result[0].nome},{" "}
-                      {result?.result[i.principalNameIndex].result[0].freq
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                      pessoas no Brasil
-                    </Text>
-                  </Card>
-                </Box>
-
-              )}
-
+              {cat &&
+                cat.result.map(
+                  (i: {
+                    id: number;
+                    count: number;
+                    color: ColorNames;
+                    emoji: string;
+                    titulo: string;
+                    principalNameIndex: string;
+                    searchTabIndex: string;
+                  }) =>
+                    i.titulo != "Populares" && (
+                      <Box
+                        className={"from-aba-" + i.searchTabIndex}
+                        key={i.id}
+                      >
+                        <Card
+                          onClick={() => setTab(parseInt(i.searchTabIndex))}
+                          color={i.color}
+                          style={
+                            i.color == "white" ? { borderColor: "white" } : {}
+                          }
+                          variant="subtle"
+                          p="sm"
+                          m="xs"
+                        >
+                          <Text size="lg" as="span" align="right">
+                            <small>{i.count} 👀</small>
+                          </Text>
+                          <Heading
+                            style={{ marginTop: "-30px" }}
+                            color={i.color}
+                            size="lg"
+                          >
+                            <b style={{ fontSize: "2em" }}>{i.emoji}</b>{" "}
+                            {i.titulo}
+                          </Heading>
+                          <Text color={i.color} size="xs" align="right">
+                            {
+                              result?.result[i.principalNameIndex].result[0]
+                                .nome
+                            }
+                            ,{" "}
+                            {result?.result[i.principalNameIndex].result[0].freq
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                            pessoas no Brasil
+                          </Text>
+                        </Card>
+                      </Box>
+                    )
+                )}
             </Box>
           </>
         )}

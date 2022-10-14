@@ -11,30 +11,26 @@ type IFormProps = {
   setTab: (value: number) => void;
   setRef: (value: number) => void;
 };
-const Ranking = ({ setTab,setRef }: IFormProps) => {
+const Ranking = ({ setTab, setRef }: IFormProps) => {
   const params = useParams();
   window.history.replaceState(null, "", `#/2/`);
 
-  const  [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-        
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
-      
       setResult(await ApiService.getRanking());
 
       const nome = searchParams.get("callback") ?? "";
-      setSearchParams({})
-      if(nome){
+      setSearchParams({});
+      if (nome) {
         const reference = document.querySelector(
-          ".i-am-"+nome
-        ) as HTMLElement
-        if(reference)
-        scrollElementIntoView(reference,'smooth')
+          ".i-am-" + nome
+        ) as HTMLElement;
+        if (reference) scrollElementIntoView(reference, "smooth");
       }
-      ApiService.putVisit("1")
-  
+      ApiService.putVisit("1");
     };
     load();
   }, []);
@@ -60,44 +56,50 @@ const Ranking = ({ setTab,setRef }: IFormProps) => {
       </Text>
       <Divider color="red" />
 
-      <br/>
-      <Link to={"/porEstado/"}
-        style={{ cursor: "pointer" ,color:"white", textDecoration:"none"}}>
-       
-       <Card 
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        textAlign:"right"
-        }}
-      p="xs" m="xs" borderColor="purple"  variant="subtle">
-        <b style={{ fontSize: "2.5em" }}>🌌</b>
-        <Heading size="lg" >
-         VER POR ESTADO 
-        </Heading>
-      </Card>
+      <br />
+      <Link
+        to={"/porEstado/"}
+        style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
+      >
+        <Card
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            textAlign: "right",
+          }}
+          p="xs"
+          m="xs"
+          borderColor="purple"
+          variant="subtle"
+        >
+          <b style={{ fontSize: "2.5em" }}>🌌</b>
+          <Heading size="lg">VER POR ESTADO</Heading>
+        </Card>
       </Link>
-      <Link to={"/porMunicipio/"}
-        style={{ cursor: "pointer" ,color:"white", textDecoration:"none"}}>
-       
-      <Card 
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        textAlign:"right"
-        }}
-      p="xs" m="xs" borderColor="orange"  variant="subtle">
-        <b style={{ fontSize: "2.5em" }}>🌇</b>
-        <Heading size="lg" >
-        POR MUNICÍPIO 
-        </Heading>
-      </Card>
+      <Link
+        to={"/porMunicipio/"}
+        style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
+      >
+        <Card
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            textAlign: "right",
+          }}
+          p="xs"
+          m="xs"
+          borderColor="orange"
+          variant="subtle"
+        >
+          <b style={{ fontSize: "2.5em" }}>🌇</b>
+          <Heading size="lg">POR MUNICÍPIO</Heading>
+        </Card>
       </Link>
-        <br/>
+      <br />
       <Divider color="red" />
-        <Heading >&nbsp;Todo o Brasil</Heading>
+      <Heading>&nbsp;Todo o Brasil</Heading>
       {!result && (
         <>
           <Text as="p" align="center">
@@ -106,10 +108,7 @@ const Ranking = ({ setTab,setRef }: IFormProps) => {
         </>
       )}
       {result?.result.map((i: any, c: number) => (
-        <Box key={c} p="sm" 
-        
-        className={"i-am-" + i.nome}>
-        
+        <Box key={c} p="sm" className={"i-am-" + i.nome}>
           <Card color="red" variant="subtle" p="md">
             <Heading>
               <b>{i.rank}º</b> {i.nome}

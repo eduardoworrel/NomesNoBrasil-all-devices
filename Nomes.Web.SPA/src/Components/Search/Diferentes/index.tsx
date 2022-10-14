@@ -6,32 +6,28 @@ import IMensagemInterna from "../../../Interfaces/IMensagemInterna";
 import ApiService from "../../../Services/ApiService";
 import { scrollElementIntoView } from "../../../Services/scroll";
 
-
 type IFormProps = {
   setTab: (value: number) => void;
   setRef: (value: number) => void;
 };
-export default function Diferentes({ setTab,setRef }: IFormProps) {
-  const  [searchParams, setSearchParams] = useSearchParams();
-  
-        
+export default function Diferentes({ setTab, setRef }: IFormProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   window.history.replaceState(null, "", `#/3`);
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   useEffect(() => {
     const load = async () => {
       const result = await ApiService.getDiferentes();
 
-      ApiService.putVisit("3")
+      ApiService.putVisit("3");
       setResult(result);
       const nome = searchParams.get("callback") ?? "";
-  setSearchParams({})
-      if(nome){
+      setSearchParams({});
+      if (nome) {
         const reference = document.querySelector(
-          ".i-am-"+nome
-        ) as HTMLElement
-        if(reference)
-        scrollElementIntoView(reference,'smooth')
-        
+          ".i-am-" + nome
+        ) as HTMLElement;
+        if (reference) scrollElementIntoView(reference, "smooth");
       }
     };
     load();
@@ -46,7 +42,7 @@ export default function Diferentes({ setTab,setRef }: IFormProps) {
         onClick={() => {
           window.history.replaceState(null, "", "#/1/0");
           setTab(1);
-          setRef(3)
+          setRef(3);
         }}
       >
         {" "}
@@ -75,8 +71,7 @@ export default function Diferentes({ setTab,setRef }: IFormProps) {
           return 0;
         })
         .map((i: any, c: number) => (
-          <Box 
-          className={"i-am-" + i.result[0].nome} key={c} p="sm">
+          <Box className={"i-am-" + i.result[0].nome} key={c} p="sm">
             <Card style={{ borderColor: "white" }} variant="subtle" p="md">
               <Heading>{i.result[0].nome}</Heading>
               <Text color="white" size="sm">

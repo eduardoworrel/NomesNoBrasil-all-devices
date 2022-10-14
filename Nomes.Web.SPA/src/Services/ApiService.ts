@@ -21,52 +21,43 @@ const ENDPOINT_BASICA =
 const ENDPOINT_RANKING =
   "https://servicodados.ibge.gov.br/api/v1/censos/nomes/ranking";
 
-  const CATEGORIAS =
-  "https://api2.nomesnobrasil.com/Categorias";
-  const SUGESTOES =
-  "https://api2.nomesnobrasil.com/Sugestoes";
-  const UF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
-  const MUNICIPIOS = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios";
+const CATEGORIAS = "https://api2.nomesnobrasil.com/Categorias";
+const SUGESTOES = "https://api2.nomesnobrasil.com/Sugestoes";
+const UF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+const MUNICIPIOS =
+  "https://servicodados.ibge.gov.br/api/v1/localidades/municipios";
 
 const SUCESSO = 1,
   ERRO = 0;
 class ApiService {
-
-
-
   static getEstados = async (): Promise<returned[]> => {
-    
     try {
-      const ufs : returned[] = await (await fetch(UF)).json();
-      return ufs
+      const ufs: returned[] = await (await fetch(UF)).json();
+      return ufs;
     } catch (e) {
-      return  []
+      return [];
     }
   };
-  
 
   static getMunicipios = async (): Promise<returned[]> => {
-    
     try {
-      const ufs : returned[] = await (await fetch(MUNICIPIOS)).json();
-      return ufs
+      const ufs: returned[] = await (await fetch(MUNICIPIOS)).json();
+      return ufs;
     } catch (e) {
-      return  []
+      return [];
     }
   };
-  
 
-  static sendMensage = (msg : string) =>{
+  static sendMensage = (msg: string) => {
     try {
       const body = {
-        method: 'POST',
-      }
-    fetch(SUGESTOES+"?mensagem=" + msg, body)   
-     
+        method: "POST",
+      };
+      fetch(SUGESTOES + "?mensagem=" + msg, body);
     } catch (e) {
-     alert(e)
+      alert(e);
     }
-  }
+  };
   static getFaixa = async (
     nome: string,
     estado = ""
@@ -111,9 +102,12 @@ class ApiService {
       };
     }
   };
-  static getRankingByRegiaoIBGE = async (quantidade = 15,estado:number | string): Promise<IMensagemInterna> => {
+  static getRankingByRegiaoIBGE = async (
+    quantidade = 15,
+    estado: number | string
+  ): Promise<IMensagemInterna> => {
     try {
-      let stringBuilder = "?regiao="+estado+"&qtd=" + quantidade;
+      let stringBuilder = "?regiao=" + estado + "&qtd=" + quantidade;
       const ranking = await (
         await fetch(ENDPOINT_RANKING + stringBuilder)
       ).json();
@@ -150,36 +144,30 @@ class ApiService {
   };
 
   static getCategorias = async (tentativa = 0): Promise<IMensagemInterna> => {
-    
     try {
       const cat = await (await fetch(CATEGORIAS)).json();
-     
+
       return {
         mensagem: SUCESSO,
         result: cat,
       };
     } catch (e) {
-      if(tentativa == 3){
-
+      if (tentativa == 3) {
         return {
           mensagem: ERRO,
           result: [],
         };
-      }else{
-        return this.getCategorias(tentativa + 1)
+      } else {
+        return this.getCategorias(tentativa + 1);
       }
     }
   };
-  
-  static putVisit = (categoriaId : string): void => {
-    
-  
+
+  static putVisit = (categoriaId: string): void => {
     const body = {
-      method: 'POST',
-    }
-    fetch(CATEGORIAS+"?categoriaId=" + categoriaId, body).catch((e)=>{
-     
-    })
+      method: "POST",
+    };
+    fetch(CATEGORIAS + "?categoriaId=" + categoriaId, body).catch((e) => {});
   };
 
   static getPaginaInicial = async (): Promise<IMensagemInterna> => {
