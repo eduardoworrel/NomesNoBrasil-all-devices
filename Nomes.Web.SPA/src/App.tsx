@@ -8,6 +8,7 @@ import RankingEstados from "./Pages/RankingEstados";
 import { Heading } from "dracula-ui";
 import RankingMunicipios from "./Pages/RankingMunicipios";
 import Comparar from "./Pages/Comparar";
+import Agrupar from "./Pages/Agrupar";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="porEstado/" element={<RankingEstados />} />
         <Route path="porMunicipio/" element={<RankingMunicipios />} />
         <Route path="comparar/" element={<Comparar />} />
+        <Route path="agrupar/" element={<Agrupar />} />
       </Routes>
     </main>
   );

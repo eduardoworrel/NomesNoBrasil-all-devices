@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-import { Heading } from "@dracula/dracula-ui";
+import { Heading } from "dracula-ui";
 
 import IFaixa from "../../../Interfaces/IFaixa";
 
@@ -24,29 +24,27 @@ ChartJS.register(
   Legend
 );
 interface IProps {
-  faixas1: IFaixa[];
-  faixas2: IFaixa[];
+  faixas: IFaixa[][];
 }
 
-export const CompareChart = ({ faixas1, faixas2 }: IProps) => {
+export const CompareChart = ({ faixas }: IProps) => {
   
 
   const dados = {
-    labels: faixas1.map((a) => a.faixa),
-    datasets: [
-      {
-        label: faixas1[0].nome,
-        data: faixas1.map((a) => a.freq),
-        borderColor: "cyan",
-        backgroundColor: "black",
-      },
-      {
-        label: faixas2[0].nome,
-        data: faixas2.map((a) => a.freq),
-        borderColor: "yellow",
-        backgroundColor: "black",
-      },
-    ],
+    labels: faixas[0].map((a) => a.faixa),
+    datasets: 
+      faixas.filter(faixa=>faixa != null && faixa.length > 0)
+      .map((faixa)=>{
+        
+          return {
+            label: faixa[0].nome,
+            data: faixa.map((a) => a.freq),
+            borderColor: '#'+(0x1000000+Math.random()*0xffffff).toString(16).substr(1,6),
+            backgroundColor:'#'+(0x1000000+Math.random()*0xffffff).toString(16).substr(1,6),
+          };
+        
+      })
+    ,
   };
   return (
     <>

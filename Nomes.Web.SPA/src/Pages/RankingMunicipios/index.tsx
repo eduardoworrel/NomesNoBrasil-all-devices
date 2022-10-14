@@ -7,7 +7,7 @@ import {
   Heading,
   Input,
   Text,
-} from "@dracula/dracula-ui";
+} from "dracula-ui";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import returned from "../../Interfaces/returned";

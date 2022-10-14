@@ -7,7 +7,7 @@ import {
   Heading,
   Input,
   Text,
-} from "@dracula/dracula-ui";
+} from "dracula-ui";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import returned from "../../Interfaces/returned";
@@ -114,7 +114,7 @@ function Comparar() {
       }
     {
       !isLoading && !notFound && dados?.a.faixa[0] && dados?.b.faixa[0] &&
-      <CompareChart faixas1={dados.a.faixa} faixas2={dados.b.faixa} />
+      <CompareChart faixas={[dados.a.faixa,dados.b.faixa]} />
     }
     {
       notFound &&
