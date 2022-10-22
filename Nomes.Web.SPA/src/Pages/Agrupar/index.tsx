@@ -33,9 +33,9 @@ function Agrupar() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [nomes, setNomes] = useState<string[]>([]);
+  const [nomesNotFound, setNomesNotFound] = useState<string[]>([]);
   const [nome, setTempNome] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
-  const [loadeds, setLoadeds] = useState(0);
   const [dados, setDados] = useState<ISecoes[]>([]);
 
   const addName = async () => {
@@ -52,13 +52,18 @@ function Agrupar() {
     }
     setIsLoading(true);
     const temp: ISecoes[] = [];
-    for (const nome of nomes) {
+    const tempNotfount : string[] = [];
+    for (const _nome of nomes) {
       const secao: ISecoes = {
-        faixa: await (await ApiService.getFaixa(nome)).result,
-        basica: await (await ApiService.getBasica(nome)).result,
+        faixa: await (await ApiService.getFaixa(_nome)).result,
+        basica: await (await ApiService.getBasica(_nome)).result,
       };
-      setLoadeds(loadeds + 1);
-      temp.push(secao);
+      if(secao.basica && secao.basica.length > 0){
+
+        temp.push(secao);
+      }else{
+        tempNotfount.push(_nome)
+      }
     }
     temp.sort((a: ISecoes, b: ISecoes) => {
       if (
@@ -76,6 +81,7 @@ function Agrupar() {
         return -1;
       }
     });
+    setNomesNotFound(tempNotfount);
     setDados(temp);
   };
 
@@ -189,6 +195,8 @@ function Agrupar() {
       <Text>
         <div
           onClick={() => {
+
+          setNomesNotFound([]);
             setIsLoading(false);
           }}
           style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
@@ -198,7 +206,7 @@ function Agrupar() {
       </Text>
       <Divider color="purple" />
       <br />
-      {dados.length > 0 ? (
+      {dados.length > 0 || nomesNotFound.length > 0 ? (
         <>
           {dados.map((i: ISecoes, c: number) => {
             if (i.basica != null && i.basica.length > 0) {
@@ -213,7 +221,7 @@ function Agrupar() {
                       {c == 0 ? "🏆 " : ""}
                       {c == 1 ? "🥈 " : ""}
                       {c == 2 ? "🥉 " : ""}
-                      {i.basica[0].rank}º {i.basica[0].nome}
+                      {c + 1}º {i.basica[0].nome}
                     </Heading>
                     <Text color="purple" size="sm">
                       {i.basica[0].freq
@@ -226,15 +234,8 @@ function Agrupar() {
               );
             }
           })}
-          {nomes.map((nome: string, c: number) => {
-            if (
-              !dados.some((i: ISecoes) => {
-                if (i.basica && i.basica.length > 0) {
-                  return i.basica[0].nome == nome.toUpperCase();
-                }
-                return false;
-              })
-            ) {
+          {nomesNotFound.map((nome: string, c: number) => {
+            
               return (
                 <Box className={"i-am-" + nome} key={c} p="xs">
                   <Card
@@ -249,9 +250,11 @@ function Agrupar() {
                   </Card>
                 </Box>
               );
-            }
+            
           })}
-          <CompareChart faixas={dados.map((i) => i.faixa)} />
+           {dados.length > 0 &&
+            <CompareChart faixas={dados.map((i) => i.faixa)} />
+           }
         </>
       ) : (
         <Text color="white" size="lg" align="center" as="p">
