@@ -81,12 +81,23 @@ function RankingEstados() {
         <b style={{ fontSize: "1.8em" }}>🌌</b> POR ESTADO&nbsp;&nbsp;
       </Heading>
       <Text>
-        <Link
-          to={"/2/0"}
-          style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
-        >
-          ⏪ Voltar
-        </Link>
+        {!selected &&
+          <Link
+            to={"/2/0"}
+            style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
+          >
+            ⏪ Voltar
+          </Link>
+        }
+        {selected &&
+          <Box
+            onClick={() => setSelected(undefined)}
+            style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
+          >
+            ⏪ Voltar
+          </Box>
+        }
+
       </Text>
       <Divider />
       <br />
@@ -121,7 +132,6 @@ function RankingEstados() {
                       m="xs"
                     >
                       <img
-                        loading="lazy"
                         src={
                           "https://servicodados.ibge.gov.br/api/v3/malhas/estados/" +
                           item.id +
@@ -138,9 +148,6 @@ function RankingEstados() {
                   <>
                     <Box p="sm">
                       <Card
-                        onClick={() => {
-                          setSelected(undefined);
-                        }}
                         style={{ borderColor: "white" }}
                         variant="subtle"
                         p="sm"
@@ -150,7 +157,7 @@ function RankingEstados() {
                           style={{ textAlign: "center" }}
                           color="purple"
                         >
-                          <b style={{ fontSize: "1.5em" }}>🔁</b> &nbsp; |{" "}
+
                           {selectedName}
                         </Heading>
                       </Card>

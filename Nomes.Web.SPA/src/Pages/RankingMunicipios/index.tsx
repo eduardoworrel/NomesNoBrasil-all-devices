@@ -28,11 +28,14 @@ function RankingMunicipios() {
 
   const toShow: any[] = [];
   if (municipio.length && !nome) {
+
+    toShow.push(municipio.find((i) => i.nome == "Oiapoque"));
     toShow.push(municipio.find((i) => i.nome == "Fernando de Noronha"));
     toShow.push(municipio.find((i) => i.nome == "Nova Iorque"));
     toShow.push(municipio.find((i) => i.nome == "Armação dos Búzios"));
     toShow.push(municipio.find((i) => i.nome == "Balneário Camboriú"));
-    toShow.push(municipio.find((i) => i.nome == "Gramado"));
+    toShow.push(municipio.find((i) => i.nome == "Dourados"));
+    toShow.push(municipio.find((i) => i.nome == "Chuí"));
   }
 
   if (nome.length > 0) {
@@ -115,12 +118,22 @@ function RankingMunicipios() {
         <b style={{ fontSize: "1.8em" }}>🌇</b> POR MUNICÍPIO&nbsp;
       </Heading>
       <Text>
-        <Link
-          to={"/2/0"}
-          style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
-        >
-          ⏪ Voltar
-        </Link>
+        {!selected &&
+          <Link
+            to={"/2/0"}
+            style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
+          >
+            ⏪ Voltar
+          </Link>
+        }
+        {selected &&
+          <Box
+            onClick={() => setSelected(undefined)}
+            style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
+          >
+            ⏪ Voltar
+          </Box>
+        }
       </Text>
       <Divider />
       <br />
@@ -182,7 +195,6 @@ function RankingMunicipios() {
                         m="xs"
                       >
                         <img
-                          loading="lazy"
                           src={
                             "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/" +
                             item.id +
@@ -200,9 +212,6 @@ function RankingMunicipios() {
                   <>
                     <Box p="sm">
                       <Card
-                        onClick={() => {
-                          setSelected(undefined);
-                        }}
                         style={{ borderColor: "white" }}
                         variant="subtle"
                         p="sm"
@@ -212,7 +221,6 @@ function RankingMunicipios() {
                           style={{ textAlign: "center" }}
                           color="orange"
                         >
-                          <b style={{ fontSize: "1.5em" }}>🔁</b> &nbsp; |{" "}
                           {selectedName}
                         </Heading>
                       </Card>
