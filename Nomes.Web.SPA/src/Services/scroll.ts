@@ -21,6 +21,8 @@ export const scrollElementIntoView = (
 export function replaceSpecialChars(str: string) {
   str = str.replace(/[ÀÁÂÃÄÅàáâãäå]/, "a");
   str = str.replace(/[ÈÉÊË]/, "e");
+
+  str = str.replace(/[ÌÍÎìíî]/, "i");
   str = str.replace(/[ÚúúùÙŨ]/, "u");
   str = str.replace(/[ÓóòÒÕÔ]/, "o");
   str = str.replace(/[çÇ]/, "c");

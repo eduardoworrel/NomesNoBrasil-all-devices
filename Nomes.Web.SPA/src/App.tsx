@@ -9,10 +9,14 @@ import { Heading } from "dracula-ui";
 import RankingMunicipios from "./Pages/RankingMunicipios";
 import Comparar from "./Pages/Comparar";
 import Agrupar from "./Pages/Agrupar";
+import InversedRankingMunicipios from "./Pages/InversedRankingMunicipios";
+import ScrollToTop from "react-scroll-to-top";
 
 function App() {
   return (
     <main className="App">
+      <ScrollToTop smooth component={<p style={{ color: "blue" }}>🔼</p>} />
+      
       <Heading style={{ textAlign: "center", padding: "10px 0 0 0" }}>
         Nomes no Brasil
         <img
@@ -32,6 +36,7 @@ function App() {
         <Route path="results/:pagina/:nome" element={<Results />} />
         <Route path="porEstado/" element={<RankingEstados />} />
         <Route path="porMunicipio/" element={<RankingMunicipios />} />
+        <Route path="porMunicipioInvertido/" element={<InversedRankingMunicipios />} />
         <Route path="comparar/" element={<Comparar />} />
         <Route path="agrupar/" element={<Agrupar />} />
       </Routes>

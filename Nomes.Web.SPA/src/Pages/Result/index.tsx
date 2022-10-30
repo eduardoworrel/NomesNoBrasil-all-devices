@@ -21,6 +21,7 @@ function Results() {
   const params = useParams();
   const nome = params.nome ?? "";
   const abaCallback = params.pagina ?? 1;
+  const inversed =searchParams.get("inversed") ?? false;
 
   const [estado, setEstado] = useState("");
 
@@ -61,7 +62,9 @@ function Results() {
               ? "/" + abaCallback + "?callback=" + nome
               : rankEstado
               ? "/porEstado/?estado=" + rankEstado + "&nome=" + nome
-              : "/porMunicipio/?municipio=" + rankMunicipio + "&nome=" + nome
+              : !inversed ?
+               "/porMunicipio/?municipio=" + rankMunicipio + "&nome=" + nome
+               :"/porMunicipioInvertido/?municipio=" + rankMunicipio + "&nome=" + nome
           }
           style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
         >

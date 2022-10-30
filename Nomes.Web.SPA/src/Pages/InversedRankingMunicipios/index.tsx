@@ -15,7 +15,7 @@ import {
   scrollElementIntoView,
 } from "../../Services/scroll";
 
-function RankingMunicipios() {
+function InversedRankingMunicipios() {
   const history = useNavigate();
 
   const [municipio, setmunicipio] = useState<returned[]>([]);
@@ -28,14 +28,14 @@ function RankingMunicipios() {
 
   const toShow: any[] = [];
   if (municipio.length && !nome) {
-
-    toShow.push(municipio.find((i) => i.nome == "Oiapoque"));
-    toShow.push(municipio.find((i) => i.nome == "Fernando de Noronha"));
-    toShow.push(municipio.find((i) => i.nome == "Nova Iorque"));
-    toShow.push(municipio.find((i) => i.nome == "Armação dos Búzios"));
-    toShow.push(municipio.find((i) => i.nome == "Balneário Camboriú"));
-    toShow.push(municipio.find((i) => i.nome == "Dourados"));
-    toShow.push(municipio.find((i) => i.nome == "Chuí"));
+    toShow.push(municipio.find((i) => i.nome == "Macapá"));
+    toShow.push(municipio.find((i) => i.nome == "São Paulo"));
+    toShow.push(municipio.find((i) => i.nome == "Belém"));
+    toShow.push(municipio.find((i) => i.nome == "Rio de Janeiro"));
+    toShow.push(municipio.find((i) => i.nome == "Palmas"));
+    toShow.push(municipio.find((i) => i.nome == "Florianópolis"));
+    toShow.push(municipio.find((i) => i.nome == "Porto Alegre"));
+    toShow.push(municipio.find((i) => i.nome == "Recife"));
   }
 
   if (nome.length > 0) {
@@ -66,7 +66,7 @@ function RankingMunicipios() {
   useEffect(() => {
     const handle = async () => {
       if (selected) {
-        setRanking(await ApiService.getRankingByRegiaoIBGE(50, selected));
+        setRanking(await ApiService.getInversedRankingByRegiaoIBGE(selected));
       } else {
         let municipios;
         if (!municipio.length) {
@@ -115,12 +115,12 @@ function RankingMunicipios() {
         color="white"
         style={{ float: "right" }}
       >
-        <b style={{ fontSize: "1.8em" }}>🌇</b> POR MUNICÍPIO&nbsp;
+        <b style={{ fontSize: "1.8em" }}> 🥺</b> MENOS POPULARES
       </Heading>
       <Text>
         {!selected &&
           <Link
-            to={"/2/0"}
+             to={"/1"}
             style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
           >
             ⏪ Voltar
@@ -151,6 +151,9 @@ function RankingMunicipios() {
               <Box>
                 {!selected ? (
                   <>
+                   <Text as="p" align="center">
+                      (Em breve estados e distritos)
+                    </Text>
                     <Box p="xs" className="flex-cotainer">
                       <section className="inputName">
                         <Input
@@ -164,7 +167,7 @@ function RankingMunicipios() {
                       </section>
                       <section className="inputButton">
                         <Button
-                          color="blackSecondary"
+                          color="greySecondary"
                           m="sm"
                           onClick={() => {
                             htmlElRef.current && htmlElRef.current.focus();
@@ -174,7 +177,7 @@ function RankingMunicipios() {
                         </Button>
                       </section>
                     </Box>
-                    <br />
+                   
                     <br />
                     {toShow?.map((item, c) => (
                       <Card
@@ -184,25 +187,25 @@ function RankingMunicipios() {
                           justifyContent: "space-around",
                           alignItems: "center",
                           textAlign: "right",
+                          backgroundColor:"white"
                         }}
                         onClick={() => {
                           setSelected(item.id);
                           setSelectedName(item.nome);
                         }}
-                        variant="subtle"
-                        color="orange"
+                        
                         p="xs"
-                        m="xs"
+                        m="sm"
                       >
                         <img
                           src={
                             "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/" +
                             item.id +
-                            "?qualidade=minima&preenchimento=fdfdfd"
+                            "?qualidade=minima"
                           }
                           width={70}
                         />
-                        <Heading size="lg" style={{ width: "155px" }}>
+                        <Heading color={"black"} size="lg" style={{ width: "155px" }}>
                           {item.nome} ({item.microrregiao.mesorregiao.UF.sigla})
                         </Heading>
                       </Card>
@@ -213,13 +216,13 @@ function RankingMunicipios() {
                     <Box p="sm">
                       <Card
                         style={{ borderColor: "white" }}
-                        variant="subtle"
+                        color="animated"
                         p="sm"
                       >
                         <Heading
-                          size="md"
+                          size="lg"
                           style={{ textAlign: "center" }}
-                          color="orange"
+                         color="black" 
                         >
                           {selectedName}
                         </Heading>
@@ -229,16 +232,16 @@ function RankingMunicipios() {
                     {ranking?.result
                       .sort(function (a: any, b: any) {
                         if (a.rank > b.rank) {
-                          return 1;
+                          return -1;
                         }
                         if (a.rank < b.rank) {
-                          return -1;
+                          return 1;
                         }
                         return 0;
                       })
                       .map((i: any, c: number) => (
                         <Box key={c} className={"i-am-" + i.nome} p="sm">
-                          <Card color="orange" variant="subtle" p="md">
+                          <Card style={{borderColor:"white"}} variant="subtle" p="md">
                             <Heading>
                               <b>{i.rank}º</b> {i.nome}
                             </Heading>
@@ -254,10 +257,18 @@ function RankingMunicipios() {
                                   "/results/2/" +
                                   i.nome +
                                   "?municipio=" +
-                                  selectedName
+                                  selectedName+
+                                  "&inversed=1" 
                                 }
                               >
-                                <Button color="orange">Confira</Button>
+                                <Button color="blackSecondary">
+                                  <Text>
+                                    <b>
+                                    Confira
+                                      
+                                    </b>
+                                    </Text>
+                                    </Button>
                               </Link>
                             </div>
                           </Card>
@@ -273,4 +284,4 @@ function RankingMunicipios() {
     </>
   );
 }
-export default RankingMunicipios;
+export default InversedRankingMunicipios;

@@ -124,6 +124,27 @@ class ApiService {
     }
   };
 
+  static getInversedRankingByRegiaoIBGE = async (
+    estado: number | string
+  ): Promise<IMensagemInterna> => {
+    try {
+      let stringBuilder = "?regiao=" + estado + "&qtd=50000";
+      const ranking = await (
+        await fetch(ENDPOINT_RANKING + stringBuilder)
+      ).json();
+
+      return {
+        mensagem: SUCESSO,
+        result: ranking.slice(-100),
+      };
+    } catch (e) {
+      return {
+        mensagem: ERRO,
+        result: [],
+      };
+    }
+  };
+
   static getRanking = async (quantidade = 50): Promise<IMensagemInterna> => {
     try {
       let stringBuilder = "?qtd=" + quantidade;

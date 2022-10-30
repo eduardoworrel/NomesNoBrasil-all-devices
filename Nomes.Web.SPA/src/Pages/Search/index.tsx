@@ -132,7 +132,7 @@ const Search = () => {
                   <Text>AGRUPAR</Text>
                 </Card>
               </Link>
-              <Card
+              {/* <Card
                 className="from-aba-10"
                 onClick={() => setTab(10)}
                 style={{ width: "45%", textAlign: "center", float: "left" }}
@@ -144,7 +144,21 @@ const Search = () => {
                 <b style={{ fontSize: "1.5em" }}>💡</b>
                 <Divider color="pink" />
                 <Text>CONTRIBUIR</Text>
-              </Card>
+              </Card> */}
+              <Link
+                style={{ textDecoration: "none", display: "contents" }}
+                to={"/porMunicipioInvertido/"}
+              >
+                <Card
+                  style={{ width: "45%", textAlign: "center", float: "left", background:"white" }}
+                  m="xs"
+                  p="sm"
+                >
+                  <b style={{ fontSize: "1.9em" }}>🥺</b>
+                  <Divider color="cyan" />
+                  <Text color="black"><b>MENOS POPULARES</b></Text>
+                </Card>
+              </Link>
               <Link
                 style={{ textDecoration: "none", display: "contents" }}
                 to={"/comparar/"}
@@ -156,7 +170,7 @@ const Search = () => {
                   m="xs"
                   p="sm"
                 >
-                  <b style={{ fontSize: "1.5em" }}>👤 ❌ 👤</b>
+                  <b style={{ fontSize: "1.5em" }}>👤 🤝 👤</b>
                   <Divider color="yellow" />
                   <Text>COMPARAR</Text>
                 </Card>
