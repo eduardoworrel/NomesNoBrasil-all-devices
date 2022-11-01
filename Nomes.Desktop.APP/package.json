@@ -2,10 +2,9 @@
   "name": "app",
   "version": "1.0.0",
   "description": "app",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run compile && electron",
+    "start": "npm run compile && electron ./build/index.js",
     "compile": "tsc"
   },
   "author": "Eduardo Worrel",
