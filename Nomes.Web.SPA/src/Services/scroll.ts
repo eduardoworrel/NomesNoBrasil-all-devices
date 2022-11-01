@@ -6,7 +6,7 @@ export const scrollElementIntoView = (
 
   // Furthermore, if you have for example a header outside the iframe
   // you need to factor in its dimensions when calculating the position to scroll to
-  const headerOutsideIframe = -140;
+  const headerOutsideIframe = -100;
 
   const finalOffset =
     element.getBoundingClientRect().top + scrollTop + headerOutsideIframe;
@@ -15,7 +15,7 @@ export const scrollElementIntoView = (
       top: finalOffset,
       behavior: behavior || "auto",
     });
-  }, 100);
+  }, 50);
 };
 
 export function replaceSpecialChars(str: string) {

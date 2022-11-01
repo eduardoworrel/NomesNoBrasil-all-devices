@@ -120,7 +120,7 @@ function InversedRankingMunicipios() {
       <Text>
         {!selected &&
           <Link
-             to={"/1"}
+             to={"/1/2"}
             style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
           >
             ⏪ Voltar

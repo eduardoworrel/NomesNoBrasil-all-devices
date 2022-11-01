@@ -15,20 +15,19 @@ import ScrollToTop from "react-scroll-to-top";
 function App() {
   return (
     <main className="App">
-      <ScrollToTop smooth component={<p style={{ color: "blue" }}>🔼</p>} />
-      
-      <Heading style={{ textAlign: "center", padding: "10px 0 0 0" }}>
+      <ScrollToTop style={{backgroundColor:"transparent", boxShadow:"none"}}
+       smooth component={<p style={{ fontSize: '30px',
+          marginTop: '5px'}}>🔼</p>} />
+      <br></br>
+      <Heading style={{fontSize:"2.2em", textAlign: "center", padding: "10px 0 0 0" }}>
         Nomes no Brasil
-        <img
-          style={{ marginLeft: "7px" }}
-          width="20px"
-          src="./brazil-flag.png"
-        />
       </Heading>
       <Heading size="xs" style={{ textAlign: "center", padding: "0 0 40px 0" }}>
-        <small>Com dados do Censo (IBGE)</small>
+        <small>Com dados do <b>IBGE</b></small>
       </Heading>
-
+      <br></br>
+      <br></br>
+      <br></br>
       <Routes>
         <Route path="" element={<Search />} />
         <Route path="/:pagina/" element={<Search />} />
@@ -40,6 +39,9 @@ function App() {
         <Route path="comparar/" element={<Comparar />} />
         <Route path="agrupar/" element={<Agrupar />} />
       </Routes>
+      <br></br>
+      <br></br>
+      <br></br>
     </main>
   );
 }

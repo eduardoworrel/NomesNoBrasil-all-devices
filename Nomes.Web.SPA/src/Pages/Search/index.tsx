@@ -32,38 +32,43 @@ const Search = () => {
 
   const paginaCallback = params.pagina ? parseInt(params.pagina) : 1;
 
-  const callback = params.callback && (params.callback ?? "");
-
+  const callback = params.callback ?? "0";
+  console.log(callback)
   const [tab, setTab] = useState(paginaCallback);
   const [result, setResult] = useState<IMensagemInterna | null>(null);
   const [cat, setCat] = useState<IMensagemInterna | null>(null);
 
-  const [clickAgrupar, setCA] = useState(false);
-  const [clickComparar, setCC] = useState(false);
 
   const [ref, setRef] = useState(0);
 
   useEffect(() => {
     const load = async () => {
       try {
+        if(callback == "2" || ref == 2){
+          const reference = document.querySelector(
+            `.from-aba-2`
+            ) as HTMLElement;
+            scrollElementIntoView(reference, "smooth");
+        }
         if (!cat) {
           const categoria = await ApiService.getCategorias();
           setCat(categoria);
         }
-        if (ref != 0) {
+        if(ref != 0 && ref != 2){
           const reference = document.querySelector(
             `.from-aba-` + ref
-          ) as HTMLElement;
-          scrollElementIntoView(reference, "smooth");
-          setRef(0);
+            ) as HTMLElement;
+            scrollElementIntoView(reference, "smooth");
         }
-      } catch {}
+      
+
+      } catch { }
       try {
         if (!result) {
           const result = await ApiService.getPaginaInicial();
           setResult(result);
         }
-      } catch {}
+      } catch { }
     };
     load();
   }, [ref]);
@@ -73,13 +78,40 @@ const Search = () => {
       <Box>
         {tab === 1 && (
           <>
-            <Heading size="sm" className="centered">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Heading size="md" className="centered" style={{ textAlign: "left", marginLeft: "20px" }}>
               Pesquise um nome
             </Heading>
-
-            <SearchBar />
-
+            <Box>
+              <SearchBar />
+            </Box>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <Divider />
+
+            <br></br>
+            <Heading size="md" style={{ textAlign: "left", marginLeft: "20px" }} className="centered">
+              Opções especiais
+            </Heading>
+
+
+            <br></br>
+
             <Box
               style={{
                 justifyContent: "center",
@@ -107,7 +139,7 @@ const Search = () => {
               >
                 <b style={{ fontSize: "1.6em" }}>🥉🥇🥈</b>
                 <Divider color="red" />
-                <Text>POPULARES</Text>
+                <Text>+ POPULARES</Text>
               </Card>
 
               <Link
@@ -116,12 +148,6 @@ const Search = () => {
               >
                 <Card
                   style={{ width: "45%", textAlign: "center", float: "left" }}
-                  onClick={() => {
-                    setCA(true);
-                    setTimeout(() => {
-                      setCA(false);
-                    }, 2000);
-                  }}
                   variant="subtle"
                   color="cyan"
                   m="xs"
@@ -150,13 +176,13 @@ const Search = () => {
                 to={"/porMunicipioInvertido/"}
               >
                 <Card
-                  style={{ width: "45%", textAlign: "center", float: "left", background:"white" }}
+                  style={{ width: "45%", textAlign: "center", float: "left", background: "white" }}
                   m="xs"
                   p="sm"
                 >
-                  <b style={{ fontSize: "1.9em" }}>🥺</b>
+                  <b style={{ fontSize: "1.6em" }}>🥺</b>
                   <Divider color="cyan" />
-                  <Text color="black"><b>MENOS POPULARES</b></Text>
+                  <Text color="black">- POPULARES</Text>
                 </Card>
               </Link>
               <Link
@@ -176,10 +202,20 @@ const Search = () => {
                 </Card>
               </Link>
             </Box>
+
+            <br></br>
+            <br></br>
+
+            <br></br>
+            <br></br>
             <Divider style={{ clear: "both" }} />
-            <Heading size="sm" className="centered">
+            <br></br>
+            <br></br>
+            <Heading size="md" style={{ textAlign: "left", marginLeft: "20px" }} className="centered">
               Ou navegue por categoria
             </Heading>
+
+
             <br />
             <Box style={{ cursor: "pointer" }}>
               {!cat && (
@@ -187,6 +223,18 @@ const Search = () => {
                   <Text as="p" align="center">
                     <LoadingIcons.Puff />
                   </Text>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
                 </>
               )}
               {cat &&
@@ -212,18 +260,16 @@ const Search = () => {
                             i.color == "white" ? { borderColor: "white" } : {}
                           }
                           variant="subtle"
-                          p="sm"
+                          p="xs"
                           m="xs"
                         >
-                          <Text size="lg" as="span" align="right">
-                            <small>{i.count} 👀</small>
-                          </Text>
+
                           <Heading
-                            style={{ marginTop: "-30px" }}
+                            style={{ fontSize: "1.9em" }}
                             color={i.color}
                             size="lg"
                           >
-                            <b style={{ fontSize: "2em" }}>{i.emoji}</b>{" "}
+                            <b style={{ fontSize: "1.2em", marginLeft: "10px" }}>{i.emoji}</b>{" "}
                             {i.titulo}
                           </Heading>
                           <Text color={i.color} size="xs" align="right">
@@ -236,6 +282,9 @@ const Search = () => {
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                             pessoas no Brasil
+                          </Text>
+                          <Text size="lg" as="span" align="right">
+                            <small>{i.count} 👀</small>
                           </Text>
                         </Card>
                       </Box>

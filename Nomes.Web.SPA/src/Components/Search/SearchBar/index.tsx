@@ -28,8 +28,10 @@ const SearchBar = (): JSX.Element => {
           />
         </section>
         <section className="inputButton">
-          <Button color="purpleCyan" m="sm" onClick={handleNovaBusca}>
-            Pesquisar
+          <Button color="purpleCyan" m="sm" 
+          style={{fontSize:"1.4em"}}
+          onClick={handleNovaBusca}>
+          🔎
           </Button>
         </section>
       </Box>

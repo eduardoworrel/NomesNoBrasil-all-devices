@@ -97,7 +97,7 @@ function Agrupar() {
       </Heading>
       <Text>
         <Link
-          to={"/1"}
+          to={"/1/2"}
           style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
         >
           ⏪ Voltar
