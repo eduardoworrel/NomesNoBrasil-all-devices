@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import ApiService from "../../Services/ApiService";
 import SearchBar from "../../Components/Search/SearchBar";
+import { scrollElementIntoView } from "../../Services/scroll";
 
 function Results() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,6 +23,9 @@ function Results() {
   const nome = params.nome ?? "";
   const abaCallback = params.pagina ?? 1;
   const inversed =searchParams.get("inversed") ?? false;
+  const reference = document.querySelector(".topo") as HTMLElement;
+
+  if (reference) scrollElementIntoView(reference, "smooth");
 
   const [estado, setEstado] = useState("");
 
@@ -39,7 +43,7 @@ function Results() {
         setNone(false);
         setSecao(secao);
       }
-    };
+   };
     handle();
   }, [estado]);
 
@@ -48,7 +52,7 @@ function Results() {
 
   return (
     <>
-      <Text size="lg" color="white" style={{ float: "right" }}>
+      <Text className="topo" size="lg" color="white" style={{ float: "right" }}>
         <b style={{ fontSize: "1em" }}>👤</b>{" "}
         {typeof informacoesBasicas == "object"
           ? informacoesBasicas?.nome
