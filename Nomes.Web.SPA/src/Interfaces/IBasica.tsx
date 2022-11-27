@@ -5,4 +5,5 @@ export default interface IBasica {
   percentual: string;
   ufMax: string;
   ufMaxProp: string;
+  nomes: string;
 }

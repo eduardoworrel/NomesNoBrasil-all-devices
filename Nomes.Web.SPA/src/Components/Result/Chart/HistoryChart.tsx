@@ -25,21 +25,28 @@ ChartJS.register(
 );
 interface IProps {
   faixas: IFaixa[];
+  paralelas: IFaixa[][];
 }
 
-export const HistoryChart = ({ faixas }: IProps) => {
+export const HistoryChart = ({ faixas,paralelas }: IProps) => {
   const labels = faixas.map((a) => a.faixa);
-
+  const ds = [{
+              label: faixas[0].nome,
+              data: faixas.map((a) => a.freq),
+              borderColor: "yellowgreen",
+              backgroundColor: "black",
+            },]
+  for(const p of paralelas){
+    ds.push({
+      label: p[0].nome,
+      data: p.map((a) => a.freq),
+      borderColor: "grey",
+      backgroundColor: "white",
+    })
+  }
   const dados = {
     labels,
-    datasets: [
-      {
-        label: "",
-        data: faixas.map((a) => a.freq),
-        borderColor: "yellowgreen",
-        backgroundColor: "black",
-      },
-    ],
+    datasets: ds,
   };
   return (
     <>

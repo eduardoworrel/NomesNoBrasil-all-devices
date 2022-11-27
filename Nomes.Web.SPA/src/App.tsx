@@ -15,7 +15,7 @@ import ScrollToTop from "react-scroll-to-top";
 function App() {
   return (
     <main className="App">
-      <ScrollToTop style={{backgroundColor:"transparent", boxShadow:"none"}}
+      <ScrollToTop style={{width:"45px",backgroundColor:"transparent", boxShadow:"none"}}
        smooth component={<p style={{ fontSize: '30px',
           marginTop: '5px'}}>🔼</p>} />
       <br></br>

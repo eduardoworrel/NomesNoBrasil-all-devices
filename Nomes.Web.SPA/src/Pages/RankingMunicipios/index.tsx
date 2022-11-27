@@ -80,12 +80,12 @@ function RankingMunicipios() {
           history("/2/" + callback);
         } else {
           setmunicipio(municipios);
-          const municipioReturn = searchParams.get("municipio") ?? "";
+          const municipioReturn = parseInt(searchParams.get("municipio") ?? "0");
           const nome = searchParams.get("nome") ?? "";
 
           if (municipioReturn && municipios) {
             for (let item of municipios) {
-              if (item.nome == municipioReturn) {
+              if (item.id == municipioReturn) {
                 setSelected(item.id);
                 setSelectedName(item.nome);
                 setSearchParams({});
@@ -254,7 +254,7 @@ function RankingMunicipios() {
                                   "/results/2/" +
                                   i.nome +
                                   "?municipio=" +
-                                  selectedName
+                                  selected
                                 }
                               >
                                 <Button color="orange">Confira</Button>

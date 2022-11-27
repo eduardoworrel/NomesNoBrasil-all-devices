@@ -19,27 +19,42 @@ function InversedRankingMunicipios() {
   const history = useNavigate();
 
   const [municipio, setmunicipio] = useState<returned[]>([]);
+  const [_estados, setEstados] = useState<returned[]>([]);
   const [selected, setSelected] = useState<number | string | undefined>();
   const [selectedName, setSelectedName] = useState<string | undefined>();
   const [ranking, setRanking] = useState<IMensagemInterna | undefined>();
   const [nome, setNome] = useState("");
 
   const htmlElRef = createRef<HTMLInputElement>();
-
+  ApiService.putVisit("13");
   const toShow: any[] = [];
   if (municipio.length && !nome) {
+    toShow.push(_estados.find((i) => i.nome == "Amapá"));
     toShow.push(municipio.find((i) => i.nome == "Macapá"));
-    toShow.push(municipio.find((i) => i.nome == "São Paulo"));
-    toShow.push(municipio.find((i) => i.nome == "Belém"));
-    toShow.push(municipio.find((i) => i.nome == "Rio de Janeiro"));
-    toShow.push(municipio.find((i) => i.nome == "Palmas"));
-    toShow.push(municipio.find((i) => i.nome == "Florianópolis"));
-    toShow.push(municipio.find((i) => i.nome == "Porto Alegre"));
-    toShow.push(municipio.find((i) => i.nome == "Recife"));
-  }
 
+    toShow.push(_estados.find((i) => i.nome == "São Paulo"));
+    toShow.push(municipio.find((i) => i.nome == "São Paulo"));
+
+    toShow.push(_estados.find((i) => i.nome == "Rio de Janeiro"));
+    toShow.push(municipio.find((i) => i.nome == "Rio de Janeiro"));
+  }
+  
   if (nome.length > 0) {
     let limit = 0;
+    toShow.push(..._estados
+      .filter((i) => {
+        let r =
+          limit <= 25 &&
+          replaceSpecialChars(i.nome.toLowerCase()).includes(
+            replaceSpecialChars(nome.toLowerCase())
+          );
+        if (r) {
+          limit++;
+        }
+
+        return r;
+      })
+      .slice(0, 25))
     toShow.push(
       ...municipio
         .filter((i) => {
@@ -55,7 +70,9 @@ function InversedRankingMunicipios() {
           return r;
         })
         .slice(0, 25)
+        
     );
+   
   }
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -66,26 +83,36 @@ function InversedRankingMunicipios() {
   useEffect(() => {
     const handle = async () => {
       if (selected) {
+        console.log(selected)
         setRanking(await ApiService.getInversedRankingByRegiaoIBGE(selected));
       } else {
+        
         let municipios;
         if (!municipio.length) {
           municipios = await ApiService.getMunicipios();
         } else {
           municipios = municipio;
         }
+                
+        let estados;
+        if (!_estados.length) {
+          estados = await ApiService.getEstados();
+        } else {
+          estados = _estados;
+        }
+        setEstados(estados)
 
         if (!municipios) {
           const callback = 1;
           history("/2/" + callback);
         } else {
           setmunicipio(municipios);
-          const municipioReturn = searchParams.get("municipio") ?? "";
+          const municipioReturn = parseInt(searchParams.get("municipio") ?? "0");
           const nome = searchParams.get("nome") ?? "";
 
           if (municipioReturn && municipios) {
-            for (let item of municipios) {
-              if (item.nome == municipioReturn) {
+            for (let item of [...municipios,...estados]) {
+              if (item.id == municipioReturn) {
                 setSelected(item.id);
                 setSelectedName(item.nome);
                 setSearchParams({});
@@ -115,7 +142,7 @@ function InversedRankingMunicipios() {
         color="white"
         style={{ float: "right" }}
       >
-        <b style={{ fontSize: "1.8em" }}> 🥺</b> MENOS POPULARES
+        <b style={{ fontSize: "1.8em" }}> 💎</b> MENOS POPULARES
       </Heading>
       <Text>
         {!selected &&
@@ -128,7 +155,7 @@ function InversedRankingMunicipios() {
         }
         {selected &&
           <Box
-            onClick={() => setSelected(undefined)}
+            onClick={() => {setSelected(undefined);setRanking(undefined)}}
             style={{ cursor: "pointer", color: "white", textDecoration: "none" }}
           >
             ⏪ Voltar
@@ -151,16 +178,14 @@ function InversedRankingMunicipios() {
               <Box>
                 {!selected ? (
                   <>
-                   <Text as="p" align="center">
-                      (Em breve estados e distritos)
-                    </Text>
+                
                     <Box p="xs" className="flex-cotainer">
                       <section className="inputName">
                         <Input
                           value={nome}
                           onChange={(e) => setNome(e.target.value)}
                           color="white"
-                          placeholder="Um município"
+                          placeholder="Estado ou município"
                           ref={htmlElRef}
                           m="xs"
                         />
@@ -187,7 +212,8 @@ function InversedRankingMunicipios() {
                           justifyContent: "space-around",
                           alignItems: "center",
                           textAlign: "right",
-                          backgroundColor:"white"
+                          backgroundColor:"whitesmoke",
+                          height:"105px"
                         }}
                         onClick={() => {
                           setSelected(item.id);
@@ -197,17 +223,34 @@ function InversedRankingMunicipios() {
                         p="xs"
                         m="sm"
                       >
+                         {
+                          item.microrregiao ?
+                          <Card p="xxs" style={{alignSelf: "start",fontSize:"0.8em"
+                            }} color="cyanGreen">MUNICIPIO</Card>
+                          :
+                          <Card style={{alignSelf: "start",
+                          fontSize:"0.8em"}} p="xxs" color="purpleCyan">ESTADO</Card>
+                          }
                         <img
-                          src={
+                          src={ item.microrregiao ?
                             "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/" +
+                            item.id +
+                            "?qualidade=minima"
+                            :
+                            "https://servicodados.ibge.gov.br/api/v3/malhas/estados/" +
                             item.id +
                             "?qualidade=minima"
                           }
                           width={70}
                         />
-                        <Heading color={"black"} size="lg" style={{ width: "155px" }}>
-                          {item.nome} ({item.microrregiao.mesorregiao.UF.sigla})
+                        <Heading color={"black"} size="lg" style={{ width: "200px" }}>
+                          {item.nome} {
+                          item.microrregiao &&
+                          <>({item.microrregiao.mesorregiao.UF.sigla})</>
+                          }
+                         
                         </Heading>
+                     
                       </Card>
                     ))}
                   </>
@@ -229,7 +272,13 @@ function InversedRankingMunicipios() {
                       </Card>
                     </Box>
                     <Divider />
-                    {ranking?.result
+                    {
+                    !ranking ?
+                    <><Text as="p" align="center">
+                    <LoadingIcons.Puff />
+                  </Text></>
+                    :
+                    ranking?.result
                       .sort(function (a: any, b: any) {
                         if (a.rank > b.rank) {
                           return -1;
@@ -257,7 +306,7 @@ function InversedRankingMunicipios() {
                                   "/results/2/" +
                                   i.nome +
                                   "?municipio=" +
-                                  selectedName+
+                                  selected+
                                   "&inversed=1" 
                                 }
                               >

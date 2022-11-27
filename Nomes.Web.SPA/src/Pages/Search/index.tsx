@@ -118,9 +118,25 @@ const Search = () => {
                 display: "flex",
                 flexFlow: "row wrap",
                 cursor: "pointer",
+                height:"42vh",
                 width: "100%",
               }}
             >
+                <Link
+                style={{ textDecoration: "none", display: "contents" }}
+                to={"/porMunicipioInvertido/"}
+              >
+                <Card
+                  style={{ width: "45%", 
+                  height: "max-content",textAlign: "center", float: "left", background: "whitesmoke" }}
+                  m="xs"
+                  p="sm"
+                >
+                  <b style={{ fontSize: "2em" }}>💎</b>
+                  <Divider color="cyan" />
+                  <Text color="black">➖ POPULARES</Text>
+                </Card>
+              </Link>
               <Card
                 className="from-aba-2"
                 onClick={() => {
@@ -131,15 +147,16 @@ const Search = () => {
                   textAlign: "center",
                   float: "left",
                   cursor: "pointer",
+                  height: "max-content",
                 }}
                 variant="subtle"
                 color="cyan"
                 m="xs"
                 p="sm"
               >
-                <b style={{ fontSize: "1.6em" }}>🥉🥇🥈</b>
+                <b style={{ fontSize: "2em" }}>🥉🥇🥈</b>
                 <Divider color="red" />
-                <Text>+ POPULARES</Text>
+                <Text>➕ POPULARES</Text>
               </Card>
 
               <Link
@@ -147,21 +164,40 @@ const Search = () => {
                 to={"/agrupar/"}
               >
                 <Card
-                  style={{ width: "45%", textAlign: "center", float: "left" }}
+                  style={{ width: "45%",
+                  height: "max-content", textAlign: "center", float: "left" }}
                   variant="subtle"
                   color="cyan"
                   m="xs"
                   p="sm"
                 >
-                  <b style={{ fontSize: "1.7em" }}>👥👥</b>
+                  <b style={{ fontSize: "2.1em" }}>👥👥</b>
                   <Divider color="purple" />
                   <Text>AGRUPAR</Text>
                 </Card>
               </Link>
-              {/* <Card
+            
+              <Link
+                style={{ textDecoration: "none", display: "contents" }}
+                to={"/comparar/"}
+              >
+                <Card
+                  style={{ width: "45%",
+                  height: "max-content", textAlign: "center", float: "left" }}
+                  variant="subtle"
+                  color="cyan"
+                  m="xs"
+                  p="sm"
+                >
+                  <b style={{ fontSize: "2em" }}>👤🤝👤</b>
+                  <Divider color="yellow" />
+                  <Text>COMPARAR</Text>
+                </Card>
+              </Link>
+              <Card
                 className="from-aba-10"
                 onClick={() => setTab(10)}
-                style={{ width: "45%", textAlign: "center", float: "left" }}
+                style={{ width: "45%",height:"max-content", textAlign: "center", float: "left" }}
                 variant="subtle"
                 color="cyan"
                 m="xs"
@@ -170,37 +206,7 @@ const Search = () => {
                 <b style={{ fontSize: "1.5em" }}>💡</b>
                 <Divider color="pink" />
                 <Text>CONTRIBUIR</Text>
-              </Card> */}
-              <Link
-                style={{ textDecoration: "none", display: "contents" }}
-                to={"/porMunicipioInvertido/"}
-              >
-                <Card
-                  style={{ width: "45%", textAlign: "center", float: "left", background: "white" }}
-                  m="xs"
-                  p="sm"
-                >
-                  <b style={{ fontSize: "1.6em" }}>🥺</b>
-                  <Divider color="cyan" />
-                  <Text color="black">- POPULARES</Text>
-                </Card>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", display: "contents" }}
-                to={"/comparar/"}
-              >
-                <Card
-                  style={{ width: "45%", textAlign: "center", float: "left" }}
-                  variant="subtle"
-                  color="cyan"
-                  m="xs"
-                  p="sm"
-                >
-                  <b style={{ fontSize: "1.5em" }}>👤 🤝 👤</b>
-                  <Divider color="yellow" />
-                  <Text>COMPARAR</Text>
-                </Card>
-              </Link>
+              </Card>
             </Box>
 
             <br></br>
@@ -248,7 +254,7 @@ const Search = () => {
                     principalNameIndex: string;
                     searchTabIndex: string;
                   }) =>
-                    i.titulo != "Populares" && (
+                    i.titulo != "Populares" && i.titulo != "InversedRanking" &&(
                       <Box
                         className={"from-aba-" + i.searchTabIndex}
                         key={i.id}
@@ -257,7 +263,8 @@ const Search = () => {
                           onClick={() => setTab(parseInt(i.searchTabIndex))}
                           color={i.color}
                           style={
-                            i.color == "white" ? { borderColor: "white" } : {}
+                            i.color == "white" ? { borderColor: "white",marginTop:"30px" } 
+                            : {marginTop:"30px"}
                           }
                           variant="subtle"
                           p="xs"
@@ -269,7 +276,7 @@ const Search = () => {
                             color={i.color}
                             size="lg"
                           >
-                            <b style={{ fontSize: "1.2em", marginLeft: "10px" }}>{i.emoji}</b>{" "}
+                            <b style={{ fontSize: "1.3em", marginLeft: "10px" }}>{i.emoji}</b>{" "}
                             {i.titulo}
                           </Heading>
                           <Text color={i.color} size="xs" align="right">

@@ -3,6 +3,10 @@ export default interface returned {
   sigla: string;
   nome: string;
   img: string;
+  municipio: {
+    id: number;
+    nome: string;
+  } | undefined;
   microrregiao:
     | undefined
     | {

@@ -13,6 +13,8 @@ import {
 import ApiService from "../../Services/ApiService";
 import SearchBar from "../../Components/Search/SearchBar";
 import { scrollElementIntoView } from "../../Services/scroll";
+import LoadingIcons from "react-loading-icons";
+import IFaixa from "../../Interfaces/IFaixa";
 
 function Results() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,6 +27,7 @@ function Results() {
   const inversed =searchParams.get("inversed") ?? false;
   const reference = document.querySelector(".topo") as HTMLElement;
 
+  const [faixas,setFaixas] = useState<IFaixa[][]>([]);
   if (reference) scrollElementIntoView(reference, "smooth");
 
   const [estado, setEstado] = useState("");
@@ -42,6 +45,18 @@ function Results() {
       } else {
         setNone(false);
         setSecao(secao);
+
+        const paralelos = secao.basica[0].nomes.split(",");
+        if(paralelos.length > 0){
+          const fxs = [];
+          for(const paralelo of paralelos){
+            const temp = await (await ApiService.getFaixa(paralelo, estado)).result
+            if(temp.length > 0)
+              fxs.push(temp)
+          }
+          setFaixas(fxs)
+        }
+
       }
    };
     handle();
@@ -49,7 +64,7 @@ function Results() {
 
   const informacoesBasicas = secao?.basica && secao?.basica[0];
   const faixa = secao?.faixa;
-
+  console.log(faixa)
   return (
     <>
       <Text className="topo" size="lg" color="white" style={{ float: "right" }}>
@@ -84,14 +99,19 @@ function Results() {
           <Estados setEstado={setEstado} preSelecionado={estado}></Estados>
         </Box>
         <Box>
-          {!none && typeof informacoesBasicas == "object" ? (
+          {typeof informacoesBasicas == "object" ? (
             <>
               <Dados
                 informacoesBasicas={informacoesBasicas}
                 localidadePersonalizada={estado}
               />
             </>
-          ) : (
+          ) : 
+          !none ? ( <>
+            <Text as="p" align="center">
+              <LoadingIcons.Puff />
+            </Text>
+          </>) :(
             <>
               <Box color="purpleCyan" rounded="lg" p="xs" m="xs">
                 <Heading>
@@ -122,12 +142,15 @@ function Results() {
         </Box>
 
         <br />
-        {!none && typeof faixa == "object" && (
+        {!none && (
+          typeof faixa == "object"
+          && faixa.length >0
+          ) && (
           <>
             <Divider />
             <Box className="grafico">
               <Box p="xs" m="xs">
-                <HistoryChart faixas={faixa} />
+                <HistoryChart faixas={faixa} paralelas={faixas} />
               </Box>
             </Box>
           </>

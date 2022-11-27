@@ -26,6 +26,8 @@ const SUGESTOES = "https://api2.nomesnobrasil.com/Sugestoes";
 const UF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
 const MUNICIPIOS =
   "https://servicodados.ibge.gov.br/api/v1/localidades/municipios";
+const DISTRITOS =
+  "https://servicodados.ibge.gov.br/api/v1/localidades/distritos";
 
 const SUCESSO = 1,
   ERRO = 0;
@@ -42,6 +44,15 @@ class ApiService {
   static getMunicipios = async (): Promise<returned[]> => {
     try {
       const ufs: returned[] = await (await fetch(MUNICIPIOS)).json();
+      return ufs;
+    } catch (e) {
+      return [];
+    }
+  };
+
+  static getDistritos = async (): Promise<returned[]> => {
+    try {
+      const ufs: returned[] = await (await fetch(DISTRITOS)).json();
       return ufs;
     } catch (e) {
       return [];
