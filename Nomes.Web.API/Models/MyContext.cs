@@ -105,6 +105,22 @@ public class MyContext : DbContext
                 Emoji = "🇧🇷",
                 PrincipalNameIndex = "10",
                 SearchTabIndex = "13"
+            }  
+            ,new Categoria {
+                Id = 12,
+                Titulo = "Biblicos",
+                Color = "yellow",
+                Emoji = "⛪",
+                PrincipalNameIndex = "11",
+                SearchTabIndex = "14"
+            }
+            ,new Categoria {
+                Id = 13,
+                Titulo = "InversedRanking",
+                Color = "",
+                Emoji = "",
+                PrincipalNameIndex = "12",
+                SearchTabIndex = "15"
             }
             
         );
